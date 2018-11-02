@@ -67,9 +67,35 @@ public class BetESSModel {
         }
     }
     public List<Aposta> getApostas (String email) {
-        if (this.utilizadores.containsKey(email))
-            return this.utilizadores.get(email).getApostas();
+        if (this.utilizadores.containsKey(email)){
+            Apostador apostador = (Apostador) this.utilizadores.get(email);
+            return apostador.getApostas();
+        }
         else return new ArrayList<>();
+    }
+
+    public Map<String, Utilizador> getUtilizadores() {
+        return utilizadores;
+    }
+
+    public void setUtilizadores(Map<String, Utilizador> utilizadores) {
+        this.utilizadores = utilizadores;
+    }
+
+    public Map<Integer, Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(Map<Integer, Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    public int getId_proximoEvento() {
+        return id_proximoEvento;
+    }
+
+    public void setId_proximoEvento(int id_proximoEvento) {
+        this.id_proximoEvento = id_proximoEvento;
     }
     
 }

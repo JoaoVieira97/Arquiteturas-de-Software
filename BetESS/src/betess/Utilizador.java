@@ -32,8 +32,4 @@ public abstract class Utilizador {
     public String getPassword() {
         return password;
     }
-    
-    public List<Aposta> getApostas() {
-        return new ArrayList<>();
-    }
 }
