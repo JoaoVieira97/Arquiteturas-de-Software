@@ -1,6 +1,8 @@
 package betess;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,6 +65,11 @@ public class BetESSModel {
             e.setEquipa_2(equipa_2);
             return 1;
         }
+    }
+    public List<Aposta> getApostas (String email) {
+        if (this.utilizadores.containsKey(email))
+            return this.utilizadores.get(email).getApostas();
+        else return new ArrayList<>();
     }
     
 }

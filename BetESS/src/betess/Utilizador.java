@@ -1,5 +1,8 @@
 package betess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author João Vieira & Simão Barbosa
@@ -30,4 +33,7 @@ public abstract class Utilizador {
         return password;
     }
     
+    public List<Aposta> getApostas() {
+        return new ArrayList<>();
+    }
 }
