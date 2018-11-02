@@ -22,8 +22,9 @@ public class BetESSView {
             
             
 	    op1 = new Opcao("Ver Eventos .............. ", "L");
-	    op2 = new Opcao("Ver minhas apostas ....... ", "R");      
-	    List<Opcao> linhasApost = Arrays.asList(op1, op2);
+	    op2 = new Opcao("Ver minhas apostas ....... ", "R");
+            op3 = new Opcao("Realizar nova aposta ......", "A");
+	    List<Opcao> linhasApost = Arrays.asList(op1, op2,op3);
 	    Menu menuApostador = new Menu(linhasApost, "Gestão Apostador");        
 	    menus.addMenu(2, menuApostador);
             
@@ -38,6 +39,17 @@ public class BetESSView {
 
     public void setMenus(Menus menus) {
         this.menus = menus;
+    }
+
+    public Menu menuEquipas(String equipa1, String equipa2) {
+            Opcao op1, op2, op3;
+	    op1 = new Opcao(equipa1, "0");
+	    op2 = new Opcao(equipa2, "1");  
+            op3 = new Opcao("Empate", "2");
+	    List<Opcao> linhas = Arrays.asList(op1, op2,op3);
+	    Menu menu = new Menu(linhas, "Aposta na equipa:");        
+	    return menu;
+            
     }
     
     

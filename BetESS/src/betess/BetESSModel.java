@@ -37,6 +37,12 @@ public class BetESSModel {
         this.eventos.put(this.id_proximoEvento, novoEvento);
         this.id_proximoEvento++;
     }
+        
+    public void addEvento(Evento evento){
+        evento.setId(id_proximoEvento);
+        this.eventos.put(this.id_proximoEvento, evento);
+        this.id_proximoEvento++;
+    }
     
     // 1 - modificado com sucesso, 0 - evento não existe
     public int mudarDisponibilidadeEvento(int idEvento, boolean disponibilidade){

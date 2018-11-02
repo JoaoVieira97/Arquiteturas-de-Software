@@ -56,5 +56,9 @@ public class Evento {
     public boolean getDisponibilidade() {
         return disponibilidade;
     }
+
+    void setId(int id) {
+        this.id= id;
+    }
     
 }

@@ -6,8 +6,8 @@ package betess;
  */
 public class Aposta {
     private int id;
-    private Integer resultado_evento;
-    private Integer resultado_aposta;
+    private Integer resultado_evento;// -1-aberto   0-vitoria equipa1, 1-vitoria equipa2, 2-empate 
+    private Integer resultado_aposta; //0-vitoria equipa1, 1-vitoria equipa2, 2-empate
     private double quantia;
     private Evento evento;
 
