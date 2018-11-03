@@ -113,6 +113,9 @@ public class BetESSController {
                 case "C" :
                     flowSaldo(email);
                     break;
+                case "I" :
+                    carregarConta(email);
+                    break;
                 case "S": 
                     break;
                 default: System.out.println("Opcão Inválida !"); break;
@@ -122,6 +125,16 @@ public class BetESSController {
 
     private void flowSaldo(String email){
         System.out.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo());
+    }
+    
+    private void carregarConta(String email){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Insira a quantidade monetária que pretende carregar na sua conta");
+        System.out.print("Quantia : ");
+        double q = scan.nextDouble();
+        double novo_saldo = ((Apostador) this.model.getUtilizador(email)).getSaldo() + q;
+        ((Apostador) this.model.getUtilizador(email)).setSaldo(novo_saldo);
+        System.out.println("Carregamento efetuado com sucesso! O seu saldo é de agora " + novo_saldo + " BetESSCoins");
     }
     
     private void flowFuncionario() {
