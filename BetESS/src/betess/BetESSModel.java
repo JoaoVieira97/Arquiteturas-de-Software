@@ -89,6 +89,10 @@ public class BetESSModel {
         return this.utilizadores.get(email);
     }
     
+    public boolean existeUtilizador(String email){
+        return this.utilizadores.containsKey(email);
+    }
+    
     public boolean existeEvento(int id){
         return this.eventos.containsKey(id);
     }

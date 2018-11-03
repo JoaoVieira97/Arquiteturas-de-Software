@@ -56,7 +56,7 @@ public class BetESSView {
         op43 = new Opcao("Modificar equipas .......... ", "E");
         op44 = new Opcao("Menu do Funcionário >>>>>>>> ", "S");
         List<Opcao> linhas4 = Arrays.asList(op41, op42, op43, op44);
-        Menu menuEditarEvento = new Menu(linhas3, "BetESS - Modificar evento");
+        Menu menuEditarEvento = new Menu(linhas4, "BetESS - Modificar evento");
         menus.addMenu(4, menuEditarEvento);
             
         return menus;   
@@ -70,11 +70,11 @@ public class BetESSView {
         this.menus = menus;
     }
 
-    public void menuEquipas(Evento evento) {
+    public void menuEquipas(Evento evento, double valor) {
         System.out.println("Opções de aposta disponíveis no evento " + evento.getId() + ":");
-        System.out.println("1 - Vitória do/da " + evento.getEquipa_1());
-        System.out.println("X - Empate");
-        System.out.println("2 - Vitória do/da " + evento.getEquipa_2());
+        System.out.println("1 - Vitória do/da " + evento.getEquipa_1() + " (" + evento.getOdds()[0] + ")  --> ganhos = " + (evento.getOdds()[0] * valor) + " BetESSCoins");
+        System.out.println("X - Empate (" + evento.getOdds()[1] + ")  --> ganhos = " + (evento.getOdds()[1] * valor) + " BetESSCoins");
+        System.out.println("2 - Vitória do/da " + evento.getEquipa_2() + " (" + evento.getOdds()[0] + ")  --> ganhos = " + (evento.getOdds()[0] * valor) + " BetESSCoins");
         System.out.println("S >>> Cancelar aposta");
     }
     
