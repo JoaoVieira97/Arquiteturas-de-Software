@@ -6,8 +6,8 @@ package betess;
  */
 public class Funcionario extends Utilizador {
     
-    public Funcionario(String email, String password){
-        super(email,password);
+    public Funcionario(String email, String password, String nome){
+        super(email, password, nome);
     }
     
 }

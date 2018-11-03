@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package betess;
 
 /**
  *
- * @author Utilizdor
+ * @author João Vieira & Simão Barbosa
  */
 import java.util.List;
 
@@ -17,27 +12,33 @@ public class Menu {
 	private String titulo;
 	
 	public Menu(List<Opcao> linhas, String titulo) {
-		super();
-		this.linhas = linhas;
-		this.titulo = titulo;
+            //super();
+            this.linhas = linhas;
+            this.titulo = titulo;
 	}
+        
 	public List<Opcao> getLinhas() {
-		return linhas;
+            return linhas;
 	}
+        
 	public void setLinhas(List<Opcao> linhas) {
-		this.linhas = linhas;
+            this.linhas = linhas;
 	}
+        
 	public String getTitulo() {
-		return titulo;
+            return titulo;
 	}
+        
 	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+            this.titulo = titulo;
 	}
+        
 	public void show() {
-		System.out.println(titulo);
-		for(Opcao a: linhas) {
-			System.out.println(a.getOp()+" "+a.getLetra());
-		}
-		System.out.println("     Introduza a sua opção:");
+            System.out.println("--------------------------------------------");
+            System.out.println("          " + this.titulo);
+            System.out.println("--------------------------------------------");
+            for (Opcao o : this.linhas)
+               System.out.println(o.getOpcao() + " " + o.getLetra());
+            System.out.println("          Introduza a sua opção:");
 	}
 }

@@ -32,6 +32,14 @@ public class BetESSModel {
         return 0;
     }
     
+    public void addApostador(String email, String password, String nome, double saldo){
+        this.utilizadores.put(email, new Apostador(email, password, nome, saldo));
+    }
+    
+    public void addFuncionario(String email, String password, String nome){
+        this.utilizadores.put(email, new Funcionario(email, password, nome));
+    }
+    
     public void addEvento(String equipa_1, String equipa_2, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
         Evento novoEvento = new Evento(id_proximoEvento, equipa_1, equipa_2, odd_1, odd_x, odd_2, disponibilidade);
         this.eventos.put(this.id_proximoEvento, novoEvento);
@@ -72,6 +80,23 @@ public class BetESSModel {
             return 1;
         }
     }
+    
+    public void eventoTerminado(int id){
+        System.out.println("Falta implementar");
+    }
+    
+    public Utilizador getUtilizador(String email){
+        return this.utilizadores.get(email);
+    }
+    
+    public boolean existeEvento(int id){
+        return this.eventos.containsKey(id);
+    }
+    
+    public Evento getEvento(int id){
+        return this.eventos.get(id);
+    }
+    
     public List<Aposta> getApostas (String email) {
         if (this.utilizadores.containsKey(email)){
             Apostador apostador = (Apostador) this.utilizadores.get(email);
@@ -88,8 +113,15 @@ public class BetESSModel {
         this.utilizadores = utilizadores;
     }
 
-    public Map<Integer, Evento> getEventos() {
+    public Map<Integer,Evento> getEventos(){
         return eventos;
+    }
+    
+    public List<Evento> getListaEventos() {
+        List<Evento> lista_eventos = new ArrayList<Evento>();
+        for (Evento e : this.eventos.values())
+            lista_eventos.add(e);
+        return lista_eventos;
     }
 
     public void setEventos(Map<Integer, Evento> eventos) {

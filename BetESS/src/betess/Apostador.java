@@ -1,6 +1,7 @@
 package betess;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,12 +14,11 @@ public class Apostador extends Utilizador {
     private double saldo;
     private List<Aposta> apostas;
 
-    public Apostador(String nome, double saldo, List<Aposta> apostas, String email, String password) {
-        super(email, password);
-        this.nome = nome;
+    public Apostador(String email, String password, String nome, double saldo){
+        super(email,password,nome);
         this.saldo = saldo;
-        this.apostas = apostas;
-        this.idAposta=0;
+        this.apostas = new ArrayList<Aposta>();
+        this.idAposta = 1;
     }
 
     public String getNome() {
@@ -45,19 +45,19 @@ public class Apostador extends Utilizador {
         this.apostas = apostas;
     }
     
-    public int newAposta (Integer resultado_evento, Integer resultado_aposta, double quantia, Evento evento){
-        if(saldo>=quantia){
-            Aposta ap = new Aposta( idAposta, resultado_evento ,  resultado_aposta,  quantia,  evento);
-            apostas.add(ap);
-            idAposta++;
-            saldo-=quantia;
+    public int newAposta (Integer resultado_evento, Integer resultado_aposta, double quantia, double odd, Evento evento){
+        if(saldo >= quantia){
+            Aposta aposta = new Aposta(this.idAposta, resultado_evento, resultado_aposta, quantia, odd, evento);
+            this.apostas.add(aposta);
+            this.idAposta++;
+            this.saldo -= quantia;
             return 0;
         }
         return 1;
     }
 
     public boolean saldoSufiente(double quantia) {
-        if(saldo>=quantia) return true;
+        if(saldo >= quantia) return true;
         else return false;
     }
 }

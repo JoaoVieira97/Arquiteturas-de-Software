@@ -20,6 +20,12 @@ public class Evento {
         this.odds[0] = odd_1; this.odds[1] = odd_x; this.odds[2] = odd_2;
         this.disponibilidade = disponibilidade;
     }
+
+    @Override
+    public String toString() {
+        String d = (this.disponibilidade) ? "disponível" : "indisponível";
+        return "id = " + id + "      " + equipa_1 + "(" + odds[0] + ")  X(" + odds[1] + ")  " + equipa_2 + "(" + odds[2] + ") , " + d;
+    }
     
     public void setDisponibilidade(boolean disponibilidade){
         this.disponibilidade = disponibilidade;

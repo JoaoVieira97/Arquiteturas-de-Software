@@ -1,34 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package betess;
 
 /**
  *
- * @author Utilizdor
+ * @author João Vieira & Simão Barbosa
  */
 
 public class Opcao {
-	private String op;
+    
+	private String opcao;
 	private String letra;
 
-	public Opcao(String op, String letra) {
-		this.op = op;
-		this.letra = letra;
+	public Opcao(String opcao, String letra) {
+            this.opcao = opcao;
+            this.letra = letra;
 	}
-	public String getOp() {
-		return op;
+        
+	public String getOpcao() {
+            return opcao;
 	}
-	public void setOp(String op) {
-		this.op = op;
+	
+        public void setOpcao(String opcao) {
+            this.opcao = opcao;
 	}
-	public String getLetra() {
-		return letra;
+	
+        public String getLetra() {
+            return letra;
 	}
-	public void setLetra(String letra) {
-		this.letra = letra;
+	
+        public void setLetra(String letra) {
+            this.letra = letra;
 	}
 	
 }
