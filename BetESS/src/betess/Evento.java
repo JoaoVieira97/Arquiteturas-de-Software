@@ -1,5 +1,8 @@
 package betess;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author João Vieira & Simão Barbosa
@@ -11,6 +14,7 @@ public class Evento {
     private String equipa_2;
     private double[] odds;
     private boolean disponibilidade;
+    private List<String> apostadores;
     
     public Evento(int id, String equipa_1, String equipa_2, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
         this.id = id;
@@ -19,6 +23,7 @@ public class Evento {
         this.odds = new double[3];
         this.odds[0] = odd_1; this.odds[1] = odd_x; this.odds[2] = odd_2;
         this.disponibilidade = disponibilidade;
+        this.apostadores = new ArrayList<>();
     }
 
     @Override
@@ -65,6 +70,14 @@ public class Evento {
 
     void setId(int id) {
         this.id= id;
+    }
+    
+    public List<String> getApostadores(){
+        return this.apostadores;
+    }
+    
+    public void addApostador(String email){
+        this.apostadores.add(email);
     }
     
 }

@@ -60,4 +60,14 @@ public class Apostador extends Utilizador {
         if(saldo >= quantia) return true;
         else return false;
     }
+    
+    public void eventoTerminado(int idEvento, int resultado){
+        for (Aposta aposta : this.apostas){
+            if (aposta.getIdEvento() == idEvento){
+                aposta.setResultado_evento(resultado);
+                if (aposta.getResultado_evento() == aposta.getResultado_aposta())
+                    this.saldo += aposta.getQuantia() * aposta.getOdd();
+            }
+        }
+    }
 }

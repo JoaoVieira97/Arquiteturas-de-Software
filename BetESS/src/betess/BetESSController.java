@@ -268,7 +268,26 @@ public class BetESSController {
             return;
         }
         else if (m == 1){
-            this.model.eventoTerminado(id);
+            Evento evento = this.model.getEvento(id);
+            System.out.println("Qual o resultado com que o evento terminou?");
+            System.out.println("1 - Vitória do/da " + evento.getEquipa_1());
+            System.out.println("X - Empate");
+            System.out.println("2 - Vitória do/da " + evento.getEquipa_2());
+            System.out.print("Opção : ");
+            Scanner scan = new Scanner(System.in);
+            String opcao = scan.nextLine().toUpperCase();
+            int resultado = -1;
+            switch (opcao){
+                case "1": resultado = 0; break;
+                case "X": resultado = 1; break;
+                case "2": resultado = 2; break;
+                default: break;
+            }
+            Apostador apostador;
+            for (String a : evento.getApostadores()){
+                apostador = (Apostador) this.model.getUtilizador(a);
+                apostador.eventoTerminado(evento.getId(),resultado);
+            }
             System.out.println("Evento encerrado com sucesso");
         }
     }
@@ -316,12 +335,15 @@ public class BetESSController {
             switch(opcao) {
                 case "1" :
                     apostador.newAposta(-1, 0, quantia, evento.getOdds()[0], evento); System.out.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
+                    evento.addApostador(email);
                     return;
                 case "X" :
                     apostador.newAposta(-1, 1, quantia, evento.getOdds()[1], evento); System.out.println("Aposta realizada no empate!");
+                    evento.addApostador(email);
                     return;
                 case "2" :
                     apostador.newAposta(-1, 2, quantia, evento.getOdds()[2], evento); System.out.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
+                    evento.addApostador(email);
                     return;
                 case "S":
                     break;

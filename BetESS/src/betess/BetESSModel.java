@@ -81,10 +81,6 @@ public class BetESSModel {
         }
     }
     
-    public void eventoTerminado(int id){
-        System.out.println("Falta implementar");
-    }
-    
     public Utilizador getUtilizador(String email){
         return this.utilizadores.get(email);
     }

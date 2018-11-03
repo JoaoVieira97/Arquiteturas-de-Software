@@ -94,4 +94,7 @@ public class Aposta {
         this.evento = evento;
     }
     
+    public int getIdEvento(){
+        return this.evento.getId();
+    }
 }
