@@ -82,5 +82,21 @@ public class BetESSView {
     public Menu getMenu(int indice){
         return this.menus.get(indice);
     }
-        
+    
+    public void println(String str){ 
+        System.out.println(str);
+
+    }
+    public void print(String str){ 
+        System.out.print(str);
+    }
+    public void printEventos (List<Evento> lista) {
+        println("Lista de eventos BetESS:");
+        for (Evento e : lista)
+            println(e.toString());
+    }
+    public void printApostas (List<Aposta> apostas){
+        for (Aposta a : apostas)
+            println(a.toString());
+    }
 }
