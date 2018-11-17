@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Apostador extends Utilizador implements Serializable{
     
     private int idAposta;
-    private String nome;
     private double saldo;
     private List<Aposta> apostas;
 
@@ -20,14 +19,6 @@ public class Apostador extends Utilizador implements Serializable{
         this.saldo = saldo;
         this.apostas = new ArrayList<Aposta>();
         this.idAposta = 1;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public double getSaldo() {
