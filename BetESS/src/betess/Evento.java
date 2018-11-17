@@ -1,5 +1,6 @@
 package betess;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author João Vieira & Simão Barbosa
  */
-public class Evento {
+public class Evento implements Serializable{
     
     private int id;
     private String equipa_1;

@@ -1,5 +1,6 @@
 package betess;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  *
  * @author João Vieira & Simão Barbosa
  */
-public abstract class Utilizador {
+public abstract class Utilizador implements Serializable{
     
     private String email;
     private String password;

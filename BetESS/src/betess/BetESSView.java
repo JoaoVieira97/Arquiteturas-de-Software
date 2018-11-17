@@ -96,7 +96,10 @@ public class BetESSView {
             println(e.toString());
     }
     public void printApostas (List<Aposta> apostas){
-        for (Aposta a : apostas)
-            println(a.toString());
+        if (apostas.isEmpty()) System.out.println("Não tem apostas realizadas");
+        else{
+            for (Aposta a : apostas)
+                println(a.toString());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package betess;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author João Vieira & Simão Barbosa
  */
-public class Apostador extends Utilizador {
+public class Apostador extends Utilizador implements Serializable{
     
     private int idAposta;
     private String nome;

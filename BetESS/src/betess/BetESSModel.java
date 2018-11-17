@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  *
  * @author João Vieira & Simão Barbosa
  */
-public class BetESSModel {
+public class BetESSModel implements Serializable{
     
     private Map<String,Utilizador> utilizadores;
     private Map<Integer,Evento> eventos;
@@ -134,6 +141,22 @@ public class BetESSModel {
 
     public void setId_proximoEvento(int id_proximoEvento) {
         this.id_proximoEvento = id_proximoEvento;
+    }
+    
+    public void guardaEstado(String nomeFicheiro) throws FileNotFoundException, IOException{
+        FileOutputStream fos = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this);
+        oos.flush();
+        oos.close();
+    }
+  
+    public static BetESSModel carregaEstado(String nomeFicheiro) throws FileNotFoundException, IOException, ClassNotFoundException{
+        FileInputStream fis = new FileInputStream(nomeFicheiro);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        BetESSModel m = (BetESSModel) ois.readObject();
+        ois.close();
+        return m;
     }
     
 }
