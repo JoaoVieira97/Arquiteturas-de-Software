@@ -1,0 +1,38 @@
+---AS---
+
+----Architectural Patterns
+- Layers
+	modifiability, portability , reusability
+- Pipes and filters
+	reconfigurability (modifiability) ,reuse
+- MVC
+	modifiability , extensibility , concurrency
+- Cliente-Server
+	maintainability
+- Peer-to-Peer
+	availability , 	scalability
+
+
+----Design Patterns
+
+--Behavioral
+Observer x  -> Apostador observa Evento
+Iterator x  -> 2 Interators de Lista de Eventos (por equipa, por liga)
+Mediator
+Template Method x
+Strategy x -> sort apostas, sort eventos 
+
+--Creational
+Factory Method
+Abstract factory
+prototype
+singleton
+
+--Structural
+composite x -> apostas multiplas
+proxy
+facade
+adapter
+
+--concurrency
+active object x
