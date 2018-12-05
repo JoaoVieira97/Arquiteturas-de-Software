@@ -16,7 +16,14 @@ public class BetESS_App {
         model.addEvento("Real Sociedad", "Sevilha FC", "Liga Espanhola", 2.65, 3.30, 2.40, true);
         model.addEvento("SD Huesca", "Getafe CF", "Liga Espanhola", 3.50, 3.00, 2.15, true);
         model.addEvento("Bétis Sevilha", "Celta de Vigo", "Liga Espanhola", 1.77, 3.60, 4.00, true);
-    
+        model.addEvento("CF Belenenses", "GD Chaves", "Liga Portuguesa", 2.10, 3.20, 3.40, true);
+        model.addEvento("CD Nacional", "Boavista FC", "Liga Portuguesa", 2.40, 3.15, 2.80, true);
+        model.addEvento("Moreirense FC", "CD Santa Clara", "Liga Portuguesa", 1.95, 3.25, 3.75, true);
+        model.addEvento("Vitória SC", "Rio Ave FC", "Liga Portuguesa", 2.00, 3.40, 3.50, true);
+        model.addEvento("US Sassuolo", "Catalia", "Taça de Itália", 2.25, 1.90, 5.00, true);
+        model.addEvento("FC Nantes", "Olympique de Marseille", "Liga Francesa", 2.95, 2.65, 2.15, true);
+        model.addEvento("Olympique de Lyon", "Stade Rennais", "Liga Francesa", 1.45, 3.50, 5.25, true);
+        
         model.addApostador("antonio@hotmail.com", "12345", "António Silva", 15.60);
         model.addApostador("mafalda@hotmail.com", "11111", "Mafalda Castro", 5.90);
         model.addApostador("carlos@hotmail.com", "22222", "Carlos Sampaio", 3.00);

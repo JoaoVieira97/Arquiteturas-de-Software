@@ -1,11 +1,14 @@
 package betess_patterns;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class BetESSController {
     
     private BetESSModel model;
     private BetESSView view;
+    private Iterator<Evento> iterator_result;
     
     public void setView(BetESSView v){
         this.view = v;
@@ -91,8 +94,88 @@ public class BetESSController {
     
     //------------------------------APOSTADOR------------------------------
     
-    public void flowApostador(String email){
-        System.out.println("To be implemented");
+    private void flowApostador(String email) {
+        Menu menu = view.getMenu(2);
+        String opcao;
+        do {
+            menu.show();
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next();
+            opcao = opcao.toUpperCase();
+            switch(opcao) {
+                case "E" :
+                    mostrarEventos();
+                    break;
+                case "V" :
+                    System.out.println("To be implemented");
+                    //verApostasRealizadas(email);
+                    break;
+                case "A" :
+                    System.out.println("To be implemented");
+                    //novaAposta(email);
+                    break;
+                case "C" :
+                    imprimeSaldo(email);
+                    break;
+                case "I" :
+                    carregarConta(email);
+                    break;
+                case "S": 
+                    break;
+                default: System.out.println("Opcão Inválida!"); break;
+            }
+        } while(!opcao.equals("S"));
+        System.out.println("Até à próxima visita " + model.getUtilizador(email).getNome() + "!");
+    }
+    
+    public void mostrarEventos(){
+        List<Evento> eventos = this.model.getListaEventos();
+        Menu menu = this.view.getMenu(5);
+        String opcao;
+        do{
+            menu.show();
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next();
+            opcao = opcao.toUpperCase();
+            switch(opcao) {
+                case "T":
+                    this.view.printCollectionEventos("Todos os eventos:", eventos);
+                    break;
+                case "C":
+                    System.out.println("Qual a competição que pretende procurar?");
+                    String competicao = scan.next();
+                    this.iterator_result = new IteratorCompeticao(eventos.iterator(),competicao);
+                    this.view.printIteratorEventos("Eventos pela procura de competição '" + competicao + "':", this.iterator_result);
+                    break;
+                case "E":
+                    System.out.println("Qual a equipa que pretende procurar?");
+                    String equipa = scan.next();
+                    this.iterator_result = new IteratorEquipa(eventos.iterator(),equipa);
+                    this.view.printIteratorEventos("Eventos pela procura de equipa '" + equipa + "':", this.iterator_result);
+                    break;
+                case "M":
+                    System.out.println("TODO");
+                    break;
+                case "S":
+                    break;
+                default: System.out.println("Opcão Inválida!"); break;
+                
+            }
+        } while(!opcao.equals("R"));
+    }
+    
+    private void imprimeSaldo(String email){
+        System.out.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo());
+    }
+    
+    private void carregarConta(String email){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Insira a quantidade monetária que pretende carregar na sua conta");
+        System.out.print("Quantia : ");
+        double q = scan.nextDouble();
+        double novo_saldo = ((Apostador) this.model.getUtilizador(email)).getSaldo() + q;
+        ((Apostador) this.model.getUtilizador(email)).setSaldo(novo_saldo);
+        System.out.println("Carregamento efetuado com sucesso! O seu saldo é de agora " + novo_saldo + " BetESSCoins");
     }
     
     //-----------------------------FUNCIONÁRIO-----------------------------

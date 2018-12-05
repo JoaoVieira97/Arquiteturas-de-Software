@@ -1,6 +1,8 @@
 package betess_patterns;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BetESSModel {
@@ -46,6 +48,13 @@ public class BetESSModel {
     
     public Utilizador getUtilizador(String email){
         return this.utilizadores.get(email);
+    }
+    
+    public List<Evento> getListaEventos() {
+        List<Evento> lista_eventos = new ArrayList<Evento>();
+        for (Evento e : this.eventos.values())
+            lista_eventos.add(e);
+        return lista_eventos;
     }
     
 }

@@ -26,6 +26,12 @@ public class Evento implements Subject{
         this.num_apostas = 0;
     }
     
+    @Override
+    public String toString() {
+        String d = (this.disponibilidade) ? "disponível" : "indisponível";
+        return "id = " + id + "      " + equipa_1 + "(" + odds[0] + ")  X(" + odds[1] + ")  " + equipa_2 + "(" + odds[2] + ") , " + competicao + ", " + d;
+    }
+    
     public void registerObserver(Observer o){
         this.apostadores.add(o);
     }

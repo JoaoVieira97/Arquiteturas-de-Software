@@ -1,6 +1,8 @@
 package betess_patterns;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public class BetESSView {
@@ -55,6 +57,17 @@ public class BetESSView {
         List<Opcao> linhas4 = Arrays.asList(op41, op42, op43, op44);
         Menu menuEditarEvento = new Menu(linhas4, "BetESS - Modificar evento");
         menus.addMenu(4, menuEditarEvento);
+        
+        //Menu Eventos - número 5
+        Opcao op51, op52, op53, op54, op55;
+	op51 = new Opcao("Ver todos os eventos ....... ", "T");
+	op52 = new Opcao("Ver eventos de competição .. ", "C");
+        op53 = new Opcao("Ver eventos de equipa ...... ", "E");
+        op54 = new Opcao("Ver eventos mais apostados . ", "M");
+        op55 = new Opcao("Retroceder >>>>>>>>>>>>>>>>> ", "R");
+	List<Opcao> linhas5 = Arrays.asList(op51, op52, op53, op54, op55);
+	Menu menuEventos = new Menu(linhas5, "BetESS - Visualizar Eventos");        
+	menus.addMenu(5, menuEventos);
             
         return menus;   
     }
@@ -69,6 +82,20 @@ public class BetESSView {
     
     public Menu getMenu(int indice){
         return this.menus.get(indice);
+    }
+    
+    public void printCollectionEventos(String header, List<Evento> eventos){
+        System.out.println(header);
+        for(Evento e : eventos){
+            System.out.println(e.toString());
+        }
+    }
+    
+    public void printIteratorEventos(String header, Iterator<Evento> eventos){
+        System.out.println(header);
+        while (eventos.hasNext()){
+            System.out.println(eventos.next().toString());
+        }
     }
     
 }
