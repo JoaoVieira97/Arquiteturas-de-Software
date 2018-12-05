@@ -5,18 +5,20 @@ import java.util.List;
 class FactoryApostas {
     int idApostas;
     int idComposites;
-
-    public FactoryApostas() {
+    ApostaComponent todasApostas;
+    public FactoryApostas(ApostaComponent todasApostas) {
         this.idApostas=0;
         this.idComposites=0;
+        this.todasApostas = todasApostas;
     }
     
-    public ApostaComponent factoryApSimples(int resultado_apostado ,double quantia, double odd, Evento evento){
+    public void factoryApSimples(int resultado_apostado ,double quantia, double odd, Evento evento){
         ApostaComponent apostasimples = new ApostaSimples(idApostas,-1 , resultado_apostado , quantia, odd , evento);
         idApostas++;
-        return apostasimples;
+        this.todasApostas.add(apostasimples);
+        
     }
-    public ApostaComponent factoryApMultiplas(double quantia,List<ApostaSimples> apostas){
+    public void factoryApMultiplas(double quantia,List<ApostaSimples> apostas){
         
         ApostaComponent apostamultipla = new ConjuntoApostas(idApostas,idComposites,quantia);
         for( ApostaSimples aposta : apostas){
@@ -26,6 +28,6 @@ class FactoryApostas {
         }
         idApostas++;
         idComposites++;
-        return apostamultipla;
+        this.todasApostas.add(apostamultipla);
     }
 }
