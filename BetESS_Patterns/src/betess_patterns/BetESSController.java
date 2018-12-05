@@ -9,6 +9,7 @@ public class BetESSController {
     private BetESSModel model;
     private BetESSView view;
     private Iterator<Evento> iterator_result;
+    private StrategyEventosContext sec = new StrategyEventosContext(new SortNumApostas());
     
     public void setView(BetESSView v){
         this.view = v;
@@ -154,7 +155,8 @@ public class BetESSController {
                     this.view.printIteratorEventos("Eventos pela procura de equipa '" + equipa + "':", this.iterator_result);
                     break;
                 case "M":
-                    System.out.println("TODO");
+                    sec.sortEventos(eventos);
+                    this.view.printCollectionEventos("Eventos ordenados pelo nº de apostas:", eventos);
                     break;
                 case "S":
                     break;

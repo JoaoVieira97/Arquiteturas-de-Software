@@ -14,7 +14,7 @@ public class Evento implements Subject{
     private int num_apostas;
     private List<Observer> apostadores;
     
-    public Evento(int id, String equipa_1, String equipa_2, String competicao, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
+    public Evento(int id, String equipa_1, String equipa_2, String competicao, double odd_1, double odd_x, double odd_2, boolean disponibilidade, int num_apostas){
         this.id = id;
         this.equipa_1 = equipa_1;
         this.equipa_2 = equipa_2;
@@ -23,13 +23,13 @@ public class Evento implements Subject{
         this.odds[0] = odd_1; this.odds[1] = odd_x; this.odds[2] = odd_2;
         this.disponibilidade = disponibilidade;
         this.apostadores = new ArrayList<>();
-        this.num_apostas = 0;
+        this.num_apostas = num_apostas;
     }
     
     @Override
     public String toString() {
         String d = (this.disponibilidade) ? "disponível" : "indisponível";
-        return "id = " + id + "      " + equipa_1 + "(" + odds[0] + ")  X(" + odds[1] + ")  " + equipa_2 + "(" + odds[2] + ") , " + competicao + ", " + d;
+        return "id = " + id + "      " + equipa_1 + "(" + odds[0] + ")  X(" + odds[1] + ")  " + equipa_2 + "(" + odds[2] + ") , " + competicao + ", " + d + ", nºapostas = " + num_apostas;
     }
     
     public void registerObserver(Observer o){

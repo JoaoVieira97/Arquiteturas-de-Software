@@ -25,8 +25,8 @@ public class BetESSModel {
         this.utilizadores.put(email, new Funcionario(email, password, nome));
     }
     
-    public void addEvento(String equipa_1, String equipa_2, String competicao, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
-        Evento novoEvento = new Evento(id_proximoEvento, equipa_1, equipa_2, competicao, odd_1, odd_x, odd_2, disponibilidade);
+    public void addEvento(String equipa_1, String equipa_2, String competicao, double odd_1, double odd_x, double odd_2, boolean disponibilidade, int num_apostas){
+        Evento novoEvento = new Evento(id_proximoEvento, equipa_1, equipa_2, competicao, odd_1, odd_x, odd_2, disponibilidade, num_apostas);
         this.eventos.put(this.id_proximoEvento, novoEvento);
         this.id_proximoEvento++;
     }
