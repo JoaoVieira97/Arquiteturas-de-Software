@@ -6,6 +6,7 @@ import java.util.List;
 public class ConjuntoApostas implements ApostaComponent{
     
     private int id;
+    private int idComposite;
     private double quantia;
     private int resultado_apostado;
     private List<ApostaComponent> components;
@@ -14,10 +15,10 @@ public class ConjuntoApostas implements ApostaComponent{
         this.components = new ArrayList<>();
     }
     
-    public ConjuntoApostas(int id, double quantia, int resultado_apostado){
+    public ConjuntoApostas(int id, int idComposite,double quantia){
         this.id = id;
+        this.idComposite = idComposite;
         this.quantia = quantia;
-        this.resultado_apostado = resultado_apostado;
         this.components = new ArrayList<>();
     }
     
