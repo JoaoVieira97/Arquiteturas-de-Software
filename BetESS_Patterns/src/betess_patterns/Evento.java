@@ -8,15 +8,17 @@ public class Evento implements Subject{
     private int id;
     private String equipa_1;
     private String equipa_2;
+    private String competicao;
     private double[] odds;
     private boolean disponibilidade;
     private int num_apostas;
     private List<Observer> apostadores;
     
-    public Evento(int id, String equipa_1, String equipa_2, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
+    public Evento(int id, String equipa_1, String equipa_2, String competicao, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
         this.id = id;
         this.equipa_1 = equipa_1;
         this.equipa_2 = equipa_2;
+        this.competicao = competicao;
         this.odds = new double[3];
         this.odds[0] = odd_1; this.odds[1] = odd_x; this.odds[2] = odd_2;
         this.disponibilidade = disponibilidade;
@@ -58,6 +60,14 @@ public class Evento implements Subject{
 
     public void setEquipa_2(String equipa_2) {
         this.equipa_2 = equipa_2;
+    }
+    
+    public String getCompeticao(){
+        return competicao;
+    }
+    
+    public void setCompeticao(String competicao){
+        this.competicao = competicao;
     }
 
     public double[] getOdds() {
