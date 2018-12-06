@@ -2,6 +2,8 @@ package betess_patterns;
 
 public interface ApostaComponent {
     
+    public void show();
+    
     public void terminaEvento();
     
     public void add(ApostaComponent a);

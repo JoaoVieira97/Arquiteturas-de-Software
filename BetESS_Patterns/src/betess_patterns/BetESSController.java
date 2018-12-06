@@ -109,8 +109,7 @@ public class BetESSController {
                     mostrarEventos();
                     break;
                 case "V" :
-                    System.out.println("To be implemented");
-                    //verApostasRealizadas(email);
+                    verApostasRealizadas(email);
                     break;
                 case "A" :
                     novaAposta(email);
@@ -166,6 +165,11 @@ public class BetESSController {
         } while(!opcao.equals("R"));
     }
     
+    public void verApostasRealizadas(String email){
+        ApostaComponent apostas = ((Apostador) this.model.getUtilizador(email)).getApostas();
+        apostas.show();
+    }
+    
     private void novaAposta(String email){
         Menu menu = this.view.getMenu(6);
         String opcao;
@@ -219,16 +223,19 @@ public class BetESSController {
             switch(opcao){
                 case "1":
                     apostador.getFabricaAp().factoryApSimples(0, quantia, evento.getOdds()[0], evento);
+                    apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
                     evento.registerObserver(apostador);
                     return;
                 case "X":
                     apostador.getFabricaAp().factoryApSimples(1, quantia, evento.getOdds()[1], evento);
+                    apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada no empate!");
                     evento.registerObserver(apostador);
                     return;
                 case "2":
                     apostador.getFabricaAp().factoryApSimples(2, quantia, evento.getOdds()[2], evento);
+                    apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
                     evento.registerObserver(apostador);
                     return;
@@ -245,7 +252,7 @@ public class BetESSController {
         String opcao;
         System.out.print("Insira os id's do eventos em que pretende apostar separados por espaços: ");
         Scanner scan = new Scanner(System.in);
-        String eventos_string = scan.next();
+        String eventos_string = scan.nextLine();
         int[] eventos_id = Stream.of(eventos_string.split("\\s+")).mapToInt(Integer::parseInt).toArray();
         for (Integer e : eventos_id){
             if (!this.model.existeEvento(e)){
@@ -277,7 +284,7 @@ public class BetESSController {
             while (!ok){
                 this.view.menuEquipasMultipla(eventos[i]);
                 System.out.println("Insira a sua escolha: ");
-                scan.next();
+                //scan.next();
                 opcao = scan.next().toUpperCase();
                 switch (opcao){
                     case "1":
@@ -305,6 +312,7 @@ public class BetESSController {
             i++;
         }
         apostador.getFabricaAp().factoryApMultiplas(quantia, resultados, eventos);
+        apostador.removeQuantia(quantia);
         System.out.println("Aposta múltipla efetuada com sucesso");
     }
     

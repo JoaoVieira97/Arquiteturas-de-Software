@@ -46,4 +46,8 @@ public class Apostador extends Utilizador implements Observer{
         else return false;
     }
     
+    public void removeQuantia(double quantia){
+        this.saldo -= quantia;
+    }
+    
 }

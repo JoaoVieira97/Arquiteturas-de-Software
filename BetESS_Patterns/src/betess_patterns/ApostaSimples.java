@@ -2,6 +2,7 @@ package betess_patterns;
 
 public class ApostaSimples implements ApostaComponent{
     
+    // se id = -1 -> aposta faz parte de uma múltipla
     private int id;
     private double quantia;
     private double odd;
@@ -82,5 +83,37 @@ public class ApostaSimples implements ApostaComponent{
     
     public void terminaEvento(){
         System.out.println("To be implemented.");
+    }
+    
+    public void show(){
+        String ra;
+        switch(this.resultado_apostado){
+            case 0: ra = "1"; break;
+            case 1: ra = "X"; break;
+            case 2: ra = "2"; break;
+            default: ra = ""; break;
+        }
+        if (this.id != -1){
+            double ganhos = this.odd * this.quantia;
+            System.out.println("\nid = " + this.id + ", jogo: " + this.evento.getEquipa_1()
+                                + " X " + this.evento.getEquipa_2() + ", aposta realizada = " + ra
+                                + ", odd = " + this.odd + ", quantia = " + this.quantia + " BetESSCoins"
+                                + ", possíveis ganhos = " + ganhos + " BetESSCoins, estado = " + estado());
+        }
+        else{
+            System.out.println("\tJogo: " + this.evento.getEquipa_1() + " X " + this.evento.getEquipa_2() 
+                                + ", aposta realizada = " + ra + ", odd = " + this.odd + ", estado = " + estado());
+        }
+    }
+    
+    private String estado(){
+        if (this.resultado_final == -1) return "em aberto";
+        else{
+            if (this.resultado_apostado == this.resultado_final) return "aposta ganha";
+            else if (this.resultado_final == 0) return "aposta perdida (1)";
+            else if (this.resultado_final == 1) return "aposta perdida (X)";
+            else if (this.resultado_final == 2) return "aposta perdida (2)";
+        }
+        return "";
     }
 }
