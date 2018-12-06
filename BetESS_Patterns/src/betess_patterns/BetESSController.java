@@ -226,18 +226,21 @@ public class BetESSController {
                     apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
                     evento.registerObserver(apostador);
+                    evento.incNumApostas();
                     return;
                 case "X":
                     apostador.getFabricaAp().factoryApSimples(1, quantia, evento.getOdds()[1], evento);
                     apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada no empate!");
                     evento.registerObserver(apostador);
+                    evento.incNumApostas();
                     return;
                 case "2":
                     apostador.getFabricaAp().factoryApSimples(2, quantia, evento.getOdds()[2], evento);
                     apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
                     evento.registerObserver(apostador);
+                    evento.incNumApostas();
                     return;
                 case "C":
                     break;
@@ -291,18 +294,21 @@ public class BetESSController {
                         resultados[i] = 0;
                         System.out.println("Aposta realizada na equipa " + eventos[i].getEquipa_1() + "!");
                         eventos[i].registerObserver(apostador);
+                        eventos[i].incNumApostas();
                         ok = true;
                         break;
                     case "X":
                         resultados[i] = 1;
                         System.out.println("Aposta realizada no empate!");
                         eventos[i].registerObserver(apostador);
+                        eventos[i].incNumApostas();
                         ok = true;
                         break;
                     case "2":
                         resultados[i] = 2;
                         System.out.println("Aposta realizada na equipa " + eventos[i].getEquipa_2() + "!");
                         eventos[i].registerObserver(apostador);
+                        eventos[i].incNumApostas();
                         ok = true;
                         break;
                     default:
@@ -313,11 +319,12 @@ public class BetESSController {
         }
         apostador.getFabricaAp().factoryApMultiplas(quantia, resultados, eventos);
         apostador.removeQuantia(quantia);
+        
         System.out.println("Aposta múltipla efetuada com sucesso");
     }
     
     private void imprimeSaldo(String email){
-        System.out.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo());
+        System.out.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo() + " BetESSCoins");
     }
     
     private void carregarConta(String email){
@@ -332,8 +339,186 @@ public class BetESSController {
     
     //-----------------------------FUNCIONÁRIO-----------------------------
     
-    public void flowFuncionario(String email){
-        System.out.println("To be implemented");
+
+    private void flowFuncionario(String email) {
+        Menu menu = view.getMenu(3);
+        String opcao;
+        do {
+            menu.show();
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next();
+            opcao = opcao.toUpperCase();
+            switch(opcao) {
+                case "E" :
+                    mostrarEventos();
+                    break;
+                case "A" :
+                    adicionarEvento();
+                    break;
+                case "M" :
+                    flowModificar();
+                    break;
+                case "T" :
+                    terminarEvento();
+                    break;
+                case "S": 
+                    break;
+                default: System.out.println("Opcão Inválida !"); break;
+            }
+        } while(!opcao.equals("S"));
+        System.out.println("Até à próxima visita " + model.getUtilizador(email).getNome() + "!");
+    }
+    
+    private void adicionarEvento(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Insira o nome das 2 equipas envolvidas no jogo:");
+        System.out.print("Equipa nº1 : ");
+        String equipa_1 = scan.nextLine();
+        System.out.print("Equipa nº2 : ");
+        String equipa_2 = scan.nextLine();
+        System.out.print("Nome da Competição : ");
+        String competicao = scan.nextLine();
+        Scanner scanD = new Scanner(System.in);
+        System.out.println("Insira as odd's para os 3 possíveis resultados:");
+        System.out.print("Vitória do/da " + equipa_1 + ": ");
+        double odd_1 = scanD.nextDouble();
+        System.out.print("Empate: ");
+        double odd_x = scanD.nextDouble();
+        System.out.print("Vitória do/da " + equipa_2 + ": ");
+        double odd_2 = scanD.nextDouble();
+        System.out.print("O evento pode estar disponível de momento (S/N): ");
+        String d = scan.nextLine().toUpperCase();
+        boolean disponibilidade;
+        switch(d){
+            case "S": disponibilidade = true; break;
+            case "N": disponibilidade = false; break;
+            default: System.out.println("Opção inválida"); return;
+        }
+        this.model.addEvento(equipa_1, equipa_2,competicao ,odd_1, odd_x, odd_2, disponibilidade, 0);
+        System.out.println("Evento adicionado com sucesso");
+    }
+    
+    private void flowModificar(){
+        Scanner scanI = new Scanner(System.in);
+        System.out.print("Insira o id do evento que pretende modificar: ");
+        int id = scanI.nextInt();
+        if (!this.model.existeEvento(id)){
+            System.out.println("Não exister o evento com o id inserido");
+            return;
+        }
+        Evento evento = this.model.getEvento(id);
+        Menu menu = view.getMenu(4);
+        String opcao;
+        do {
+            menu.show();
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next();
+            opcao = opcao.toUpperCase();
+            switch(opcao) {
+                case "D" :
+                    modificarDisponibilidadeEvento(evento);
+                    break;
+                case "O" :
+                    modificarOddsEvento(evento);
+                    break;
+                case "E" :
+                    modificarEquipasEvento(evento);
+                    break;
+                case "C" :
+                    modificarCompeticaoEvento(evento);
+                    break;
+                case "S": 
+                    break;
+                default: System.out.println("Opcão Inválida !"); break;
+            }
+        } while(!opcao.equals("S"));    
+    }
+    
+    private void modificarDisponibilidadeEvento(Evento evento){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Insira 'D' para colocar o evento como disponível ou 'I' para colocar o evento como indisponível");
+        System.out.print("Opção : ");
+        String opcao = scan.nextLine().toUpperCase();
+        switch (opcao){
+            case "D":
+                evento.setDisponibilidade(true);
+                System.out.println("Evento colocado como disponível");
+                break;
+            case "I":
+                evento.setDisponibilidade(false);
+                System.out.println("Evento colocado como indisponível");
+                break;
+            default:
+                System.out.println("Opção inválida");
+                break;
+        }
+    }
+    
+    private void modificarOddsEvento(Evento evento){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Insira as odd's para os 3 resultados possíveis do evento:");
+        System.out.print("Vitória do/da " + evento.getEquipa_1() + " : ");
+        double odd_1 = scan.nextDouble();
+        System.out.print("Empate : ");
+        double odd_x = scan.nextDouble();
+        System.out.print("Vitória do/da " + evento.getEquipa_2() + " : ");
+        double odd_2 = scan.nextDouble();
+        evento.setOdds(odd_1, odd_x, odd_2);
+        System.out.println("Odd's do evento modificadas com sucesso");
+    }
+    
+    private void modificarEquipasEvento(Evento evento){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("De momento as duas equipas para aposta no evento são\nEquipa nº1 : " + evento.getEquipa_1() + "\nEquipa nº2 : " + evento.getEquipa_2());
+        System.out.println("Insira o nome das equipas para editar o evento:");
+        System.out.print("Equipa nº1 : ");
+        String equipa_1 = scan.nextLine();
+        System.out.print("Equipa nº2 : ");
+        String equipa_2 = scan.nextLine();
+        evento.setEquipa_1(equipa_1);
+        evento.setEquipa_2(equipa_2);
+        System.out.println("Equipas do evento modificadas com sucesso");
+    }
+    
+    
+    private void modificarCompeticaoEvento(Evento evento) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("De momento a competição deste evento é " + evento.getCompeticao());
+        System.out.println("Insira o novo nome de competição para editar o evento:");
+        System.out.print("Competição: ");
+        String competicao = scan.nextLine();
+        evento.setCompeticao(competicao);
+        System.out.println("Competição do evento modificada com sucesso");
+    }
+    
+    private void terminarEvento(){
+        System.out.println("Insira o id do evento que pretende encerrar:");
+        Scanner scanI = new Scanner(System.in);
+        int id = scanI.nextInt();
+        int m = this.model.mudarDisponibilidadeEvento(id, false);
+        if (m == 0){
+            System.out.println("Não existe o evento com o id inserido");
+            return;
+        }
+        else if (m == 1){
+            Evento evento = this.model.getEvento(id);
+            System.out.println("Qual o resultado com que o evento terminou?");
+            System.out.println("1 - Vitória do/da " + evento.getEquipa_1());
+            System.out.println("X - Empate");
+            System.out.println("2 - Vitória do/da " + evento.getEquipa_2());
+            System.out.print("Opção : ");
+            Scanner scan = new Scanner(System.in);
+            String opcao = scan.nextLine().toUpperCase();
+            int resultado = -1;
+            switch (opcao){
+                case "1": resultado = 0; break;
+                case "X": resultado = 1; break;
+                case "2": resultado = 2; break;
+                default: break;
+            }
+            evento.notifyObservers(id, resultado);
+            System.out.println("Evento encerrado com sucesso");
+        }
     }
     
 }

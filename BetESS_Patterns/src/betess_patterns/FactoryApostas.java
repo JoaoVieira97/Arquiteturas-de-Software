@@ -33,7 +33,7 @@ class FactoryApostas {
         ApostaComponent apostamultipla = new ConjuntoApostas(id_proximaAposta, quantia);
         int length = resultados.length;
         for (int i=0; i<length; i++){
-            apostamultipla.add(new ApostaSimples(-1, resultados[i], -1, eventos[i].getOdds()[resultados[i]], eventos[i]));
+            apostamultipla.add(new ApostaSimples(-1, resultados[i], quantia, eventos[i].getOdds()[resultados[i]], eventos[i]));
         }
         id_proximaAposta++;
         this.todasApostas.add(apostamultipla);

@@ -37,8 +37,9 @@ public class Apostador extends Utilizador implements Observer{
         this.fabricaAp = fabricaAp;
     }
     
-    public void update(){
-        System.out.println("To implement");
+    public void update(int idEvento, int resultado){
+        this.saldo+= this.getApostas().terminaEvento(idEvento, resultado);
+
     }
     
     public boolean saldoSufiente(double quantia) {

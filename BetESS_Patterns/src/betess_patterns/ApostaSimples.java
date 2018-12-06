@@ -81,8 +81,21 @@ public class ApostaSimples implements ApostaComponent{
         throw new UnsupportedOperationException("Not supported.");
     }
     
-    public void terminaEvento(){
-        System.out.println("To be implemented.");
+    public double terminaEvento(int idEvento, int resultado_evento){
+        double saldo=0;
+        if (resultado_final!=-1){
+                if (this.getResultado_final() == this.getResultado_apostado())    return -2; // evento já terminado  e aposta foi ganha
+                else return -1; // evento terminado e aposta perdida
+            
+        }
+        if (this.evento.getId() == idEvento){
+                this.setResultado_final(resultado_evento);
+                if (this.getResultado_final() == this.getResultado_apostado() )
+                    saldo += this.getQuantia() * this.getOdd(); // retorna quantia a aumentar ao saldo
+                else return -1; //perdeu aposta
+        } 
+        
+        return saldo ;
     }
     
     public void show(){

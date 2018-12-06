@@ -40,8 +40,8 @@ public class Evento implements Subject{
         this.apostadores.remove(o);
     }
     
-    public void notifyObservers(){
-        System.out.println("To implement");
+    public void notifyObservers(int idEvento, int idResultado){
+        this.apostadores.forEach((Observer a) -> a.update( idEvento, idResultado));
     }
 
     public int getId() {
@@ -80,8 +80,8 @@ public class Evento implements Subject{
         return odds;
     }
 
-    public void setOdds(double[] odds) {
-        this.odds = odds;
+    public void setOdds(double odd_1, double odd_x, double odd_2){
+        this.odds[0] = odd_1; this.odds[1] = odd_x; this.odds[2] = odd_2;
     }
 
     public boolean getDisponibilidade() {
@@ -106,6 +106,10 @@ public class Evento implements Subject{
 
     public void setApostadores(List<Observer> apostadores) {
         this.apostadores = apostadores;
+    }
+
+    void incNumApostas() {
+        this.num_apostas++;
     }
     
 }

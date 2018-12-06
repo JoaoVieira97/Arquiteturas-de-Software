@@ -31,6 +31,15 @@ public class BetESSModel {
         this.id_proximoEvento++;
     }
     
+    // 1 - modificado com sucesso, 0 - evento não existe
+    public int mudarDisponibilidadeEvento(int idEvento, boolean disponibilidade){
+        if (!this.eventos.containsKey(idEvento)) return 0;
+        else{
+            this.eventos.get(idEvento).setDisponibilidade(disponibilidade);
+            return 1;
+        }
+    }
+    
     // 1 - login com sucesso apostador, 2 - login com sucesso funcionário, 0 - password errada, -1 - email incorreto
     public int login(String email, String password){
         if (!this.utilizadores.containsKey(email)) return -1;

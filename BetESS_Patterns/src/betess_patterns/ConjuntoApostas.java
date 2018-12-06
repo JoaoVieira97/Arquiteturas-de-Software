@@ -33,8 +33,27 @@ public class ConjuntoApostas implements ApostaComponent{
         this.components.get(i);
     }
     
-    public void terminaEvento(){
-        System.out.println("To be implemented");
+    public double terminaEvento(int idEvento, int resultado){
+
+        double saldo=0;
+        List<Double> resultados = new ArrayList<>() ;
+        for (ApostaComponent ap :this.components ){
+                resultados.add(ap.terminaEvento(idEvento, resultado));
+        }
+        if (this.id == -1){
+            for (Double res : resultados) if(res>0) saldo+=res;
+            return saldo;
+        }
+        else {
+            
+            for (Double res : resultados){
+                if(res==-1) return -1 ; //perdeu aposta
+                if(res==0) return 0 ; //aposta aberta
+            }
+        
+            saldo = this.quantia * this.odd() ;
+            return saldo;
+        }
     }
     
     public double odd(){

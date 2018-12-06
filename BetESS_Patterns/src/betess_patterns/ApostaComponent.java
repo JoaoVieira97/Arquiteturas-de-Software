@@ -4,7 +4,7 @@ public interface ApostaComponent {
     
     public void show();
     
-    public void terminaEvento();
+    public double terminaEvento(int idEvento, int resultado);
     
     public void add(ApostaComponent a);
     
