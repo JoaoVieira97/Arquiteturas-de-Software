@@ -2,7 +2,6 @@ package betess_patterns;
 
 public class Apostador extends Utilizador implements Observer{
     
-    private int id_proximaAposta;
     private double saldo;
     private ApostaComponent apostas;
     private FactoryApostas fabricaAp;
@@ -11,16 +10,7 @@ public class Apostador extends Utilizador implements Observer{
         super(email,password,nome);
         this.saldo = saldo;
         this.apostas = new ConjuntoApostas();
-        this.id_proximaAposta = 1;
         this.fabricaAp = new FactoryApostas(apostas);
-    }
-
-    public int getId_proximaAposta() {
-        return id_proximaAposta;
-    }
-
-    public void setId_proximaAposta(int id_proximaAposta) {
-        this.id_proximaAposta = id_proximaAposta;
     }
 
     public double getSaldo() {
@@ -51,5 +41,9 @@ public class Apostador extends Utilizador implements Observer{
         System.out.println("To implement");
     }
     
+    public boolean saldoSufiente(double quantia) {
+        if(saldo >= quantia) return true;
+        else return false;
+    }
     
 }

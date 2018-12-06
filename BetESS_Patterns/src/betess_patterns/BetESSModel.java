@@ -57,4 +57,12 @@ public class BetESSModel {
         return lista_eventos;
     }
     
+    public boolean existeEvento(int id){
+        return this.eventos.containsKey(id);
+    }
+    
+    public Evento getEvento(int id){
+        return this.eventos.get(id);
+    }
+    
 }

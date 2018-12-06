@@ -3,7 +3,6 @@ package betess_patterns;
 public class ApostaSimples implements ApostaComponent{
     
     private int id;
-    private int idComposite;
     private double quantia;
     private double odd;
     // 0 - vitória equipa_1, 1 - empate, 2 - vitória equipa_2
@@ -12,9 +11,8 @@ public class ApostaSimples implements ApostaComponent{
     private int resultado_final;
     private Evento evento;
     
-    public ApostaSimples(int id, int idComposite, int resultado_apostado, double quantia, double odd, Evento evento) {
+    public ApostaSimples(int id, int resultado_apostado, double quantia, double odd, Evento evento) {
         this.id = id;
-        this.idComposite = idComposite;
         this.resultado_apostado = resultado_apostado;
         this.resultado_final = -1;
         this.quantia = quantia;
@@ -28,14 +26,6 @@ public class ApostaSimples implements ApostaComponent{
 
     public void setId(int id) {
         this.id = id;
-    }
-    
-    public int getIdComposite() {
-        return idComposite;
-    }
-
-    public void setIdComposite(int idComposite) {
-        this.idComposite = idComposite;
     }
 
     public double getQuantia() {

@@ -3,6 +3,7 @@ package betess_patterns;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class BetESSController {
     
@@ -112,8 +113,7 @@ public class BetESSController {
                     //verApostasRealizadas(email);
                     break;
                 case "A" :
-                    System.out.println("To be implemented");
-                    //novaAposta(email);
+                    novaAposta(email);
                     break;
                 case "C" :
                     imprimeSaldo(email);
@@ -164,6 +164,148 @@ public class BetESSController {
                 
             }
         } while(!opcao.equals("R"));
+    }
+    
+    private void novaAposta(String email){
+        Menu menu = this.view.getMenu(6);
+        String opcao;
+        do{
+            menu.show();
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next();
+            opcao = opcao.toUpperCase();
+            switch(opcao) {
+                case "S":
+                    novaApostaSimples(email);
+                    break;
+                case "M":
+                    novaApostaMultipla(email);
+                    break;
+                case "C":
+                    break;
+                default: System.out.println("Opcão Inválida!"); break;
+                
+            }
+        } while(!opcao.equals("C"));
+    }
+    
+    private void novaApostaSimples(String email){
+        String opcao;
+        System.out.print("Insira o id do evento em que pretende apostar: ");
+        Scanner scanI = new Scanner(System.in);
+        int id = scanI.nextInt();
+        if (!this.model.existeEvento(id)){
+            System.out.println("O evento com o id inserido não existe");
+            return;
+        }
+        else if (!this.model.getEvento(id).getDisponibilidade()){
+            System.out.println("O evento escolhido não está disponível para apostas de momento");
+            return;
+        }
+        Apostador apostador = (Apostador) this.model.getUtilizador(email);
+        System.out.println("Indique a quantia que pretende apostar: (Pode apostar até " + apostador.getSaldo() + " BetESSCoins)");
+        Scanner scanD = new Scanner(System.in);
+        double quantia = scanD.nextDouble();
+        if (!apostador.saldoSufiente(quantia)){
+            System.out.println("O seu saldo é insuficiente para realizar a aposta desejada!");
+            return;
+        }
+        Evento evento = this.model.getEvento(id);
+        do{
+            this.view.menuEquipas(evento, quantia);
+            System.out.println("Insira a sua escolha:");
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next().toUpperCase();
+            switch(opcao){
+                case "1":
+                    apostador.getFabricaAp().factoryApSimples(0, quantia, evento.getOdds()[0], evento);
+                    System.out.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
+                    evento.registerObserver(apostador);
+                    return;
+                case "X":
+                    apostador.getFabricaAp().factoryApSimples(1, quantia, evento.getOdds()[1], evento);
+                    System.out.println("Aposta realizada no empate!");
+                    evento.registerObserver(apostador);
+                    return;
+                case "2":
+                    apostador.getFabricaAp().factoryApSimples(2, quantia, evento.getOdds()[2], evento);
+                    System.out.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
+                    evento.registerObserver(apostador);
+                    return;
+                case "C":
+                    break;
+                default:
+                    System.out.println("Opcão Inválida! Tente de novo.");
+                    break;
+            }
+        } while(!opcao.equals("C")); 
+    }
+    
+    public void novaApostaMultipla(String email){
+        String opcao;
+        System.out.print("Insira os id's do eventos em que pretende apostar separados por espaços: ");
+        Scanner scan = new Scanner(System.in);
+        String eventos_string = scan.next();
+        int[] eventos_id = Stream.of(eventos_string.split("\\s+")).mapToInt(Integer::parseInt).toArray();
+        for (Integer e : eventos_id){
+            if (!this.model.existeEvento(e)){
+                System.out.println("O evento com o id " + e + " não existe");
+                return;
+            }
+        }
+        for (Integer e: eventos_id){
+            if (!this.model.getEvento(e).getDisponibilidade()){
+                System.out.println("O evento com o id " + e + " não está disponível para apostas de momento");
+                return;
+            }
+        }
+        Apostador apostador = (Apostador) this.model.getUtilizador(email);
+        System.out.println("Indique a quantia que pretende apostar: (Pode apostar até " + apostador.getSaldo() + " BetESSCoins)");
+        Scanner scanD = new Scanner(System.in);
+        double quantia = scanD.nextDouble();
+        if (!apostador.saldoSufiente(quantia)){
+            System.out.println("O seu saldo é insuficiente para realizar a aposta desejada!");
+            return;
+        }
+        int[] resultados = new int[eventos_id.length];
+        Evento[] eventos = new Evento[eventos_id.length];
+        int i = 0;
+        boolean ok;
+        for (Integer e : eventos_id){
+            ok = false;
+            eventos[i] = this.model.getEvento(e);
+            while (!ok){
+                this.view.menuEquipasMultipla(eventos[i]);
+                System.out.println("Insira a sua escolha: ");
+                scan.next();
+                opcao = scan.next().toUpperCase();
+                switch (opcao){
+                    case "1":
+                        resultados[i] = 0;
+                        System.out.println("Aposta realizada na equipa " + eventos[i].getEquipa_1() + "!");
+                        eventos[i].registerObserver(apostador);
+                        ok = true;
+                        break;
+                    case "X":
+                        resultados[i] = 1;
+                        System.out.println("Aposta realizada no empate!");
+                        eventos[i].registerObserver(apostador);
+                        ok = true;
+                        break;
+                    case "2":
+                        resultados[i] = 2;
+                        System.out.println("Aposta realizada na equipa " + eventos[i].getEquipa_2() + "!");
+                        eventos[i].registerObserver(apostador);
+                        ok = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            i++;
+        }
+        apostador.getFabricaAp().factoryApMultiplas(quantia, resultados, eventos);
+        System.out.println("Aposta múltipla efetuada com sucesso");
     }
     
     private void imprimeSaldo(String email){

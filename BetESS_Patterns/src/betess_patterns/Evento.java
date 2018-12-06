@@ -84,7 +84,7 @@ public class Evento implements Subject{
         this.odds = odds;
     }
 
-    public boolean isDisponibilidade() {
+    public boolean getDisponibilidade() {
         return disponibilidade;
     }
 
