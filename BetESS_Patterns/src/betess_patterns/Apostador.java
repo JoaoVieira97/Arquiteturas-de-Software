@@ -1,5 +1,7 @@
 package betess_patterns;
 
+import java.util.List;
+
 public class Apostador extends Utilizador implements Observer{
     
     private double saldo;
@@ -51,4 +53,11 @@ public class Apostador extends Utilizador implements Observer{
         this.saldo -= quantia;
     }
     
+    public void showApostas( StrategyA sortstrat ) {
+        sortstrat.sort((ConjuntoApostas) this.apostas);
+        this.apostas.show();
+    }
+    public void showApostas( ) {
+        this.apostas.show();
+    }
 }

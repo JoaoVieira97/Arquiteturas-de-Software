@@ -129,4 +129,17 @@ public class ApostaSimples implements ApostaComponent{
         }
         return "";
     }
+
+    @Override
+    public double possiveisGanhos() {
+        if (this.resultado_final!=-1) return 0; // não há possiveis ganhos se o evento já terminou
+        return this.odd*this.quantia;
+    }
+
+    @Override
+    public double ganhoOuPerda() {
+        if (this.resultado_final==-1) return 0; // evento em aberto 
+        if (this.resultado_final == this.resultado_apostado) return this.odd *this.quantia;
+        else return this.quantia * -1 ;
+    }
 }

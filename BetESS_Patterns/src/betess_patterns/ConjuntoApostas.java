@@ -9,16 +9,30 @@ public class ConjuntoApostas implements ApostaComponent{
     private int id;
     private double quantia;
     private List<ApostaComponent> components;
-    
+    private int resultadoAposta ;
+    // -1 -> perdida , 0-> em aberto , 1 -> ganha
     public ConjuntoApostas(){
         this.id = -1;
         this.components = new ArrayList<>();
+        resultadoAposta = 0;
     }
     
     public ConjuntoApostas(int id,double quantia){
         this.id = id;
         this.quantia = quantia;
         this.components = new ArrayList<>();
+        resultadoAposta = 0;
+
+    }
+
+    public List<ApostaComponent> getComponents() {
+        return components;
+    }
+    
+    
+    
+    public double getQuantia(){
+        return this.quantia;
     }
     
     public void add(ApostaComponent a){
@@ -47,11 +61,15 @@ public class ConjuntoApostas implements ApostaComponent{
         else {
             
             for (Double res : resultados){
-                if(res==-1) return -1 ; //perdeu aposta
+                if(res==-1){
+                    resultadoAposta = -1;//perdeu aposta
+                    return -1 ;
+                } 
                 if(res==0) return 0 ; //aposta aberta
             }
         
             saldo = this.quantia * this.odd() ;
+            resultadoAposta= 1; // ganhou aposta
             return saldo;
         }
     }
@@ -70,5 +88,17 @@ public class ConjuntoApostas implements ApostaComponent{
         }
         this.components.forEach(ApostaComponent::show);
     }
+
+    @Override
+    public double possiveisGanhos() {
+        if (this.resultadoAposta!=0) return 0; // não há possiveis ganhos se o evento já terminou
+        return this.odd() * this.quantia;
+    }
+
+    @Override
+    public double ganhoOuPerda() {
+        if (this.resultadoAposta==0) return 0; // evento em aberto 
+        if (this.resultadoAposta==1) return  this.odd() * this.quantia;
+        else return this.quantia * -1 ;    }
     
 }

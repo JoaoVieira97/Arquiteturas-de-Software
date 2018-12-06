@@ -12,4 +12,10 @@ public interface ApostaComponent {
     
     public void getChild(int i);
     
+    public double getQuantia();
+    
+    public double possiveisGanhos();
+    
+    public double ganhoOuPerda();
+    
 }

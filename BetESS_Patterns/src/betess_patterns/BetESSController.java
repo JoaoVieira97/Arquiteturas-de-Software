@@ -111,6 +111,9 @@ public class BetESSController {
                 case "V" :
                     verApostasRealizadas(email);
                     break;
+                case "G" :
+                    verHistoricoApostasPorGanhos(email);
+                    break;
                 case "A" :
                     novaAposta(email);
                     break;
@@ -166,8 +169,11 @@ public class BetESSController {
     }
     
     public void verApostasRealizadas(String email){
-        ApostaComponent apostas = ((Apostador) this.model.getUtilizador(email)).getApostas();
-        apostas.show();
+       ((Apostador) this.model.getUtilizador(email)).showApostas(new SortPossiveisGanhos());
+    }
+    
+    private void verHistoricoApostasPorGanhos(String email) {
+       ((Apostador) this.model.getUtilizador(email)).showApostas(new SortGanhos());
     }
     
     private void novaAposta(String email){
@@ -520,5 +526,5 @@ public class BetESSController {
             System.out.println("Evento encerrado com sucesso");
         }
     }
-    
+
 }
