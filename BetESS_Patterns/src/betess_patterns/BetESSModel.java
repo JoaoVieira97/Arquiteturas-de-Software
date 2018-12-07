@@ -35,6 +35,14 @@ public class BetESSModel {
         this.id_proximoEvento++;
     }
     
+    public boolean existeEvento(int idEvento){
+        return this.eventos.containsKey(idEvento);
+    }
+    
+    public boolean getDisponibilidadeEvento(int idEvento){
+        return this.eventos.get(idEvento).getDisponibilidade();
+    }
+    
     // 1 - modificado com sucesso, 0 - evento não existe
     public int mudarDisponibilidadeEvento(int idEvento, boolean disponibilidade){
         if (!this.eventos.containsKey(idEvento)) return 0;
@@ -81,10 +89,6 @@ public class BetESSModel {
         else if (iterator == 2){
             this.iterator_result = new IteratorEquipa(eventos.iterator(), procura);
         }
-    }
-    
-    public boolean existeEvento(int id){
-        return this.eventos.containsKey(id);
     }
     
     public Evento getEvento(int id){

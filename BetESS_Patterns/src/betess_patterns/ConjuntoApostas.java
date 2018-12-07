@@ -29,8 +29,6 @@ public class ConjuntoApostas implements ApostaComponent{
         return components;
     }
     
-    
-    
     public double getQuantia(){
         return this.quantia;
     }
@@ -50,7 +48,8 @@ public class ConjuntoApostas implements ApostaComponent{
     public double terminaEvento(int idEvento, int resultado){
 
         double saldo=0;
-        List<Double> resultados = new ArrayList<>() ;
+        int apostasAcabadas=0;
+        List<Double> resultados = new ArrayList<>();
         for (ApostaComponent ap :this.components ){
                 resultados.add(ap.terminaEvento(idEvento, resultado));
         }
@@ -66,9 +65,10 @@ public class ConjuntoApostas implements ApostaComponent{
                     return -1 ;
                 } 
                 if(res==0) return 0 ; //aposta aberta
+                if(res==-2) apostasAcabadas++; // apostaSimples ganha noutro evento
             }
-        
-            saldo = this.quantia * this.odd() ;
+            if (apostasAcabadas>=resultados.size()) return 0;
+            saldo = this.quantia * this.odd();
             resultadoAposta= 1; // ganhou aposta
             return saldo;
         }

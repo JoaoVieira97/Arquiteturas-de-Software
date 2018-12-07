@@ -499,30 +499,34 @@ public class BetESSController {
         System.out.println("Insira o id do evento que pretende encerrar:");
         Scanner scanI = new Scanner(System.in);
         int id = scanI.nextInt();
-        int m = this.model.mudarDisponibilidadeEvento(id, false);
-        if (m == 0){
+        boolean e = this.model.existeEvento(id);
+        if (!e){
             System.out.println("Não existe o evento com o id inserido");
             return;
         }
-        else if (m == 1){
-            Evento evento = this.model.getEvento(id);
-            System.out.println("Qual o resultado com que o evento terminou?");
-            System.out.println("1 - Vitória do/da " + evento.getEquipa_1());
-            System.out.println("X - Empate");
-            System.out.println("2 - Vitória do/da " + evento.getEquipa_2());
-            System.out.print("Opção : ");
-            Scanner scan = new Scanner(System.in);
-            String opcao = scan.nextLine().toUpperCase();
-            int resultado = -1;
-            switch (opcao){
-                case "1": resultado = 0; break;
-                case "X": resultado = 1; break;
-                case "2": resultado = 2; break;
-                default: break;
-            }
-            evento.notifyObservers(id, resultado);
-            System.out.println("Evento encerrado com sucesso");
+        boolean d = this.model.getDisponibilidadeEvento(id);
+        if (!d){
+            System.out.println("O evento com o id inserido não se encontra disponível de momento");
+            return;
         }
+        Evento evento = this.model.getEvento(id);
+        evento.setDisponibilidade(false);
+        System.out.println("Qual o resultado com que o evento terminou?");
+        System.out.println("1 - Vitória do/da " + evento.getEquipa_1());
+        System.out.println("X - Empate");
+        System.out.println("2 - Vitória do/da " + evento.getEquipa_2());
+        System.out.print("Opção : ");
+        Scanner scan = new Scanner(System.in);
+        String opcao = scan.nextLine().toUpperCase();
+        int resultado = -1;
+        switch (opcao){
+            case "1": resultado = 0; break;
+            case "X": resultado = 1; break;
+            case "2": resultado = 2; break;
+            default: break;
+        }
+        evento.notifyObservers(id, resultado);
+        System.out.println("Evento encerrado com sucesso");
     }
 
 }
