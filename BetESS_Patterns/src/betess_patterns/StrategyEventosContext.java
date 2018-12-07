@@ -6,6 +6,8 @@ public class StrategyEventosContext {
     
     private StrategyE strategy;
     
+    public StrategyEventosContext(){}
+    
     public StrategyEventosContext(StrategyE s){
         this.strategy = s;
     }

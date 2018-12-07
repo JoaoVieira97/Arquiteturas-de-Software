@@ -2,6 +2,7 @@ package betess_patterns;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +11,14 @@ public class BetESSModel {
     private Map<Integer, Evento> eventos;
     private Map<String, Utilizador> utilizadores;
     private int id_proximoEvento;
+    private Iterator<Evento> iterator_result;
+    private StrategyEventosContext sec;
     
     public BetESSModel(){
         this.utilizadores = new HashMap<String,Utilizador>();
         this.eventos = new HashMap<Integer,Evento>();
         this.id_proximoEvento = 1;
+        this.sec = new StrategyEventosContext();
     }
     
     public void addApostador(String email, String password, String nome, double saldo){
@@ -66,12 +70,30 @@ public class BetESSModel {
         return lista_eventos;
     }
     
+    public Iterator<Evento> getIterator_result() {
+        return iterator_result;
+    }
+    
+    public void iterateEventos(int iterator, List<Evento> eventos, String procura){
+        if (iterator == 1){
+            this.iterator_result = new IteratorCompeticao(eventos.iterator(), procura);
+        }
+        else if (iterator == 2){
+            this.iterator_result = new IteratorEquipa(eventos.iterator(), procura);
+        }
+    }
+    
     public boolean existeEvento(int id){
         return this.eventos.containsKey(id);
     }
     
     public Evento getEvento(int id){
         return this.eventos.get(id);
+    }
+    
+    public void sortEventos(List<Evento> eventos){
+        this.sec.setStrategy(new SortNumApostas());
+        this.sec.sortEventos(eventos);
     }
     
 }

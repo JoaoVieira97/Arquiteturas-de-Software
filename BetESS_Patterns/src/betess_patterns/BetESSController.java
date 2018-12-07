@@ -9,8 +9,6 @@ public class BetESSController {
     
     private BetESSModel model;
     private BetESSView view;
-    private Iterator<Evento> iterator_result;
-    private StrategyEventosContext sec = new StrategyEventosContext(new SortNumApostas());
     
     public void setView(BetESSView v){
         this.view = v;
@@ -147,17 +145,17 @@ public class BetESSController {
                 case "C":
                     System.out.println("Qual a competição que pretende procurar?");
                     String competicao = scan.next();
-                    this.iterator_result = new IteratorCompeticao(eventos.iterator(),competicao);
-                    this.view.printIteratorEventos("Eventos pela procura de competição '" + competicao + "':", this.iterator_result);
+                    this.model.iterateEventos(1, eventos, competicao);
+                    this.view.printIteratorEventos("Eventos pela procura de competição '" + competicao + "':", this.model.getIterator_result());
                     break;
                 case "E":
                     System.out.println("Qual a equipa que pretende procurar?");
                     String equipa = scan.next();
-                    this.iterator_result = new IteratorEquipa(eventos.iterator(),equipa);
-                    this.view.printIteratorEventos("Eventos pela procura de equipa '" + equipa + "':", this.iterator_result);
+                    this.model.iterateEventos(2, eventos, equipa);
+                    this.view.printIteratorEventos("Eventos pela procura de equipa '" + equipa + "':", this.model.getIterator_result());
                     break;
                 case "M":
-                    sec.sortEventos(eventos);
+                    this.model.sortEventos(eventos);
                     this.view.printCollectionEventos("Eventos ordenados pelo nº de apostas:", eventos);
                     break;
                 case "S":
@@ -169,11 +167,11 @@ public class BetESSController {
     }
     
     public void verApostasRealizadas(String email){
-       ((Apostador) this.model.getUtilizador(email)).showApostas(new SortPossiveisGanhos());
+       ((Apostador) this.model.getUtilizador(email)).showApostas(1);
     }
     
     private void verHistoricoApostasPorGanhos(String email) {
-       ((Apostador) this.model.getUtilizador(email)).showApostas(new SortGanhos());
+       ((Apostador) this.model.getUtilizador(email)).showApostas(2);
     }
     
     private void novaAposta(String email){
