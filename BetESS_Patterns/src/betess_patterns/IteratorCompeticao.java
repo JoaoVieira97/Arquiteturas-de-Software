@@ -3,7 +3,7 @@ package betess_patterns;
 import java.util.Iterator;
 import java.io.Serializable;
 
-public class IteratorCompeticao implements Iterator<Evento>, Serializable{
+public class IteratorCompeticao implements Iterator<Evento>{
     
     private Iterator<Evento> eventos;
     private Evento e;

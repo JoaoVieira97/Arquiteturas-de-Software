@@ -142,14 +142,14 @@ public class BetESSController {
                 case "C":
                     System.out.println("Qual a competição que pretende procurar?");
                     String competicao = scan.next();
-                    this.model.iterateEventos(1, eventos, competicao);
-                    this.view.printIteratorEventos("Eventos pela procura de competição '" + competicao + "':", this.model.getIterator_result());
+                    this.model.iterateEventos(1);
+                    this.view.printIteratorEventos("Eventos pela procura de competição '" + competicao + "':", this.model.getIterator_result(eventos, competicao));
                     break;
                 case "E":
                     System.out.println("Qual a equipa que pretende procurar?");
                     String equipa = scan.next();
-                    this.model.iterateEventos(2, eventos, equipa);
-                    this.view.printIteratorEventos("Eventos pela procura de equipa '" + equipa + "':", this.model.getIterator_result());
+                    this.model.iterateEventos(2);
+                    this.view.printIteratorEventos("Eventos pela procura de equipa '" + equipa + "':", this.model.getIterator_result(eventos, equipa));
                     break;
                 case "M":
                     this.model.sortEventos(eventos);

@@ -12,7 +12,7 @@ public class BetESSModel implements Serializable{
     private Map<Integer, Evento> eventos;
     private Map<String, Utilizador> utilizadores;
     private int id_proximoEvento;
-    private Iterator<Evento> iterator_result;
+    private AggregateE agregatorE;
     private StrategyEventosContext sec;
     
     public BetESSModel(){
@@ -79,16 +79,16 @@ public class BetESSModel implements Serializable{
         return lista_eventos;
     }
     
-    public Iterator<Evento> getIterator_result() {
-        return iterator_result;
+    Iterator<Evento> getIterator_result(List<Evento> eventos, String procura) {
+        return this.agregatorE.createIterator( eventos, procura);
     }
-    
-    public void iterateEventos(int iterator, List<Evento> eventos, String procura){
+
+    public void iterateEventos(int iterator){
         if (iterator == 1){
-            this.iterator_result = new IteratorCompeticao(eventos.iterator(), procura);
+            this.agregatorE = new AggregateECompeticao();
         }
         else if (iterator == 2){
-            this.iterator_result = new IteratorEquipa(eventos.iterator(), procura);
+            this.agregatorE = new AggregateEEquipa();
         }
     }
     
@@ -100,5 +100,6 @@ public class BetESSModel implements Serializable{
         this.sec.setStrategy(new SortNumApostas());
         this.sec.sortEventos(eventos);
     }
+
     
 }
