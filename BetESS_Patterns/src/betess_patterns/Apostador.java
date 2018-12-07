@@ -56,16 +56,12 @@ public class Apostador extends Utilizador implements Observer{
     }
     
     public void showApostas(int strategy){
-        if (strategy == 1){
-            this.sac.setStrategy(new SortPossiveisGanhos());
-            this.sac.sortApostas((ConjuntoApostas) this.apostas);
-        }
-        else if (strategy == 2){
-            this.sac.setStrategy(new SortGanhos());
-            this.sac.sortApostas((ConjuntoApostas) this.apostas);
-        }
-        this.apostas.show();
-        
+        if (strategy == 1) this.sac.setStrategy(new SortPossiveisGanhos());
+        else if (strategy == 2) this.sac.setStrategy(new SortGanhos());
+        else this.sac.setStrategy(new SortValorApostado());
+            
+        this.sac.sortApostas((ConjuntoApostas) this.apostas);
+        this.apostas.show();  
     }
     
     public void showApostas( ) {

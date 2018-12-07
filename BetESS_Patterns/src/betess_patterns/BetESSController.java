@@ -107,10 +107,7 @@ public class BetESSController {
                     mostrarEventos();
                     break;
                 case "V" :
-                    verApostasRealizadas(email);
-                    break;
-                case "G" :
-                    verHistoricoApostasPorGanhos(email);
+                    verApostas(email);
                     break;
                 case "A" :
                     novaAposta(email);
@@ -166,12 +163,32 @@ public class BetESSController {
         } while(!opcao.equals("R"));
     }
     
-    public void verApostasRealizadas(String email){
-       ((Apostador) this.model.getUtilizador(email)).showApostas(1);
-    }
-    
-    private void verHistoricoApostasPorGanhos(String email) {
-       ((Apostador) this.model.getUtilizador(email)).showApostas(2);
+    public void verApostas(String email){
+        Menu menu = this.view.getMenu(7);
+        String opcao;
+        do{
+            menu.show();
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next();
+            opcao = opcao.toUpperCase();
+            switch(opcao) {
+                case "S":
+                    ((Apostador) this.model.getUtilizador(email)).showApostas();
+                    break;
+                case "G":
+                    ((Apostador) this.model.getUtilizador(email)).showApostas(2);
+                    break;
+                case "P":
+                    ((Apostador) this.model.getUtilizador(email)).showApostas(1);
+                    break;
+                case "A":
+                    ((Apostador) this.model.getUtilizador(email)).showApostas(3);
+                    break;
+                case "V":
+                    break;
+                default: System.out.println("Opcão Inválida!"); break;   
+            }
+        } while(!opcao.equals("R"));
     }
     
     private void novaAposta(String email){
