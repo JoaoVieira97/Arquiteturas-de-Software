@@ -76,15 +76,15 @@ public class BetESSController {
     private void registar() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Insira o seu email:");
-        String email = scan.next();
+        String email = scan.nextLine();
         if (this.model.existeUtilizador(email)){
             System.out.println("Já existe um utilizador com o email inserido");
             return;
         }
         System.out.println("Insira o seu nome:");
-        String nome = scan.next();
+        String nome = scan.nextLine();
         System.out.println("Insira a sua password:");
-        String password = scan.next();
+        String password = scan.nextLine();
         System.out.println("Qual o valor que pretende carregar na sua conta?");
         Scanner scanD = new Scanner(System.in);
         double saldo = scanD.nextDouble();
@@ -155,7 +155,7 @@ public class BetESSController {
                     this.model.sortEventos(eventos);
                     this.view.printCollectionEventos("Eventos ordenados pelo nº de apostas:", eventos);
                     break;
-                case "S":
+                case "R":
                     break;
                 default: System.out.println("Opcão Inválida!"); break;
                 
@@ -188,7 +188,7 @@ public class BetESSController {
                     break;
                 default: System.out.println("Opcão Inválida!"); break;   
             }
-        } while(!opcao.equals("R"));
+        } while(!opcao.equals("V"));
     }
     
     private void novaAposta(String email){

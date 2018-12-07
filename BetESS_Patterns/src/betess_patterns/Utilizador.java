@@ -1,6 +1,8 @@
 package betess_patterns;
 
-public abstract class Utilizador {
+import java.io.Serializable;
+
+public abstract class Utilizador implements Serializable{
     
     private String email;
     private String password;

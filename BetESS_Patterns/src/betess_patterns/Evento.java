@@ -2,8 +2,9 @@ package betess_patterns;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class Evento implements Subject{
+public class Evento implements Subject, Serializable{
     
     private int id;
     private String equipa_1;

@@ -85,7 +85,7 @@ public class BetESSView {
 	op72 = new Opcao("Ordenadas por ganhos/perdas ...... ", "G");
         op73 = new Opcao("Ordenados por possíveis ganhos ... ", "P");
         op74 = new Opcao("Ordenados por valor apostado ..... ", "A");
-        op75 = new Opcao("Cancelar >>>>>>>>>>>>>>>>>>>>>>>>> ", "V");
+        op75 = new Opcao("Voltar >>>>>>>>>>>>>>>>>>>>>>>>>>> ", "V");
 	List<Opcao> linhas7 = Arrays.asList(op71, op72, op73, op74, op75);
 	Menu menuVerApostas = new Menu(linhas7, "BetESS - Ver Apostas");        
 	menus.addMenu(7, menuVerApostas);

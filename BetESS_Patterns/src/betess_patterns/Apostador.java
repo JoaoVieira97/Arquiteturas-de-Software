@@ -1,8 +1,8 @@
 package betess_patterns;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class Apostador extends Utilizador implements Observer{
+public class Apostador extends Utilizador implements Observer, Serializable{
     
     private double saldo;
     private ApostaComponent apostas;

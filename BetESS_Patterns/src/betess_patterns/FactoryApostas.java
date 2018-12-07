@@ -1,8 +1,8 @@
 package betess_patterns;
 
-import java.util.List;
+import java.io.Serializable;
 
-class FactoryApostas {
+class FactoryApostas implements Serializable{
     
     private int id_proximaAposta;
     private ApostaComponent todasApostas;
@@ -18,16 +18,6 @@ class FactoryApostas {
         this.todasApostas.add(apostasimples);
         
     }
-    /*
-    public void factoryApMultiplas(double quantia,List<ApostaSimples> apostas){
-        
-        ApostaComponent apostamultipla = new ConjuntoApostas(id_proximaAposta, quantia);
-        for (ApostaSimples aposta : apostas){
-            apostamultipla.add(aposta);
-        }
-        id_proximaAposta++;
-        this.todasApostas.add(apostamultipla);
-    }*/
     
     public void factoryApMultiplas(double quantia, int[] resultados, Evento[] eventos){
         ApostaComponent apostamultipla = new ConjuntoApostas(id_proximaAposta, quantia);

@@ -2,8 +2,9 @@ package betess_patterns;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class ConjuntoApostas implements ApostaComponent{
+public class ConjuntoApostas implements ApostaComponent, Serializable{
     
     // id = -1 -> conjunto inicial de apostas
     private int id;

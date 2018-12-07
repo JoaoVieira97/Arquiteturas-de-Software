@@ -1,8 +1,9 @@
 package betess_patterns;
 
 import java.util.List;
+import java.io.Serializable;
 
-public class StrategyEventosContext {
+public class StrategyEventosContext implements Serializable{
     
     private StrategyE strategy;
     

@@ -1,6 +1,8 @@
 package betess_patterns;
 
-public class ApostaSimples implements ApostaComponent{
+import java.io.Serializable;
+
+public class ApostaSimples implements ApostaComponent, Serializable{
     
     // se id = -1 -> aposta faz parte de uma múltipla
     private int id;

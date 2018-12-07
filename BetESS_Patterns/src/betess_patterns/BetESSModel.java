@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.io.Serializable;
 
-public class BetESSModel {
+public class BetESSModel implements Serializable{
     
     private Map<Integer, Evento> eventos;
     private Map<String, Utilizador> utilizadores;
