@@ -13,7 +13,7 @@ public class Apostador extends Utilizador implements Observer, Serializable{
         super(email,password,nome);
         this.saldo = saldo;
         this.apostas = new ConjuntoApostas();
-        this.fabricaAp = new FactoryApostas(apostas);
+        this.fabricaAp = new FactoryApostas();
         this.sac = new StrategyApostasContext();
     }
 
@@ -67,4 +67,13 @@ public class Apostador extends Utilizador implements Observer, Serializable{
     public void showApostas( ) {
         this.apostas.show();
     }
+    
+    public void apostaSimples(int resultado_apostado ,double quantia, double odd, Evento evento){
+        this.fabricaAp.factoryApSimples(this.apostas, resultado_apostado, quantia, odd, evento);
+    }
+    
+    public void apostaMultipla(double quantia, int[] resultados, Evento[] eventos){
+        this.fabricaAp.factoryApMultiplas(this.apostas, quantia, resultados, eventos);
+    }
+    
 }

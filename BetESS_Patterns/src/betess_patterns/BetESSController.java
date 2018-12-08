@@ -243,21 +243,21 @@ public class BetESSController {
             opcao = scan.next().toUpperCase();
             switch(opcao){
                 case "1":
-                    apostador.getFabricaAp().factoryApSimples(0, quantia, evento.getOdds()[0], evento);
+                    apostador.apostaSimples(0, quantia, evento.getOdds()[0], evento);
                     apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
                     evento.registerObserver(apostador);
                     evento.incNumApostas();
                     return;
                 case "X":
-                    apostador.getFabricaAp().factoryApSimples(1, quantia, evento.getOdds()[1], evento);
+                    apostador.apostaSimples(1, quantia, evento.getOdds()[1], evento);
                     apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada no empate!");
                     evento.registerObserver(apostador);
                     evento.incNumApostas();
                     return;
                 case "2":
-                    apostador.getFabricaAp().factoryApSimples(2, quantia, evento.getOdds()[2], evento);
+                    apostador.apostaSimples(2, quantia, evento.getOdds()[2], evento);
                     apostador.removeQuantia(quantia);
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
                     evento.registerObserver(apostador);
@@ -338,7 +338,7 @@ public class BetESSController {
             }
             i++;
         }
-        apostador.getFabricaAp().factoryApMultiplas(quantia, resultados, eventos);
+        apostador.apostaMultipla(quantia, resultados, eventos);
         apostador.removeQuantia(quantia);
         
         System.out.println("Aposta múltipla efetuada com sucesso");
