@@ -112,8 +112,8 @@ public class ApostaSimples implements ApostaComponent, Serializable{
             double ganhos = this.odd * this.quantia;
             System.out.println("\nid = " + this.id + ", jogo: " + this.evento.getEquipa_1()
                                 + " X " + this.evento.getEquipa_2() + ", aposta realizada = " + ra
-                                + ", odd = " + this.odd + ", quantia = " + this.quantia + " BetESSCoins"
-                                + ", possíveis ganhos = " + ganhos + " BetESSCoins, estado = " + estado());
+                                + ", odd = " + this.odd + ", quantia = " + this.quantia + " ESScoins"
+                                + ", possíveis ganhos = " + ganhos + " ESScoins, estado = " + estado());
         }
         else{
             System.out.println("\tJogo: " + this.evento.getEquipa_1() + " X " + this.evento.getEquipa_2() 

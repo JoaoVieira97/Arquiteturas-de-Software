@@ -1,5 +1,8 @@
 package betess_patterns;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -228,7 +231,7 @@ public class BetESSController {
             return;
         }
         Apostador apostador = (Apostador) this.model.getUtilizador(email);
-        System.out.println("Indique a quantia que pretende apostar: (Pode apostar até " + apostador.getSaldo() + " BetESSCoins)");
+        System.out.println("Indique a quantia que pretende apostar: (Pode apostar até " + apostador.getSaldo() + " ESScoins)");
         Scanner scanD = new Scanner(System.in);
         double quantia = scanD.nextDouble();
         if (!apostador.saldoSufiente(quantia)){
@@ -278,6 +281,14 @@ public class BetESSController {
         Scanner scan = new Scanner(System.in);
         String eventos_string = scan.nextLine();
         int[] eventos_id = Stream.of(eventos_string.split("\\s+")).mapToInt(Integer::parseInt).toArray();
+        List<Integer> aux = new ArrayList<>();
+        for (Integer e : eventos_id){
+            if (aux.contains(e)){
+                System.out.println("Não pode efetuar uma aposta múltipla com eventos repetidos!");
+                return;
+            }
+            aux.add(e);
+        }
         for (Integer e : eventos_id){
             if (!this.model.existeEvento(e)){
                 System.out.println("O evento com o id " + e + " não existe");
@@ -291,7 +302,7 @@ public class BetESSController {
             }
         }
         Apostador apostador = (Apostador) this.model.getUtilizador(email);
-        System.out.println("Indique a quantia que pretende apostar: (Pode apostar até " + apostador.getSaldo() + " BetESSCoins)");
+        System.out.println("Indique a quantia que pretende apostar: (Pode apostar até " + apostador.getSaldo() + " ESScoins)");
         Scanner scanD = new Scanner(System.in);
         double quantia = scanD.nextDouble();
         if (!apostador.saldoSufiente(quantia)){
@@ -345,7 +356,7 @@ public class BetESSController {
     }
     
     private void imprimeSaldo(String email){
-        System.out.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo() + " BetESSCoins");
+        System.out.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo() + " ESScoins");
     }
     
     private void carregarConta(String email){
@@ -355,7 +366,7 @@ public class BetESSController {
         double q = scan.nextDouble();
         double novo_saldo = ((Apostador) this.model.getUtilizador(email)).getSaldo() + q;
         ((Apostador) this.model.getUtilizador(email)).setSaldo(novo_saldo);
-        System.out.println("Carregamento efetuado com sucesso! O seu saldo é de agora " + novo_saldo + " BetESSCoins");
+        System.out.println("Carregamento efetuado com sucesso! O seu saldo é de agora " + novo_saldo + " ESScoins");
     }
     
     //-----------------------------FUNCIONÁRIO-----------------------------

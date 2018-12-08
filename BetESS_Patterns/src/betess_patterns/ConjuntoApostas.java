@@ -99,8 +99,8 @@ public class ConjuntoApostas implements ApostaComponent, Serializable{
             }
             System.out.println("\nid = " + this.id + ", odd = " + this.odd() + 
                                ", quantia = " + quantia +
-                               " BetESSCoins, possíveis ganhos = " + this.possiveisGanhos() +
-                               " BetESSCoins, estado = " + estado);
+                               " ESScoins, possíveis ganhos = " + this.possiveisGanhos() +
+                               " ESScoins, estado = " + estado);
         }
         this.components.forEach(ApostaComponent::show);
     }
