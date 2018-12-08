@@ -1,6 +1,7 @@
 package betess_patterns;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ApostaSimples implements ApostaComponent, Serializable{
     
@@ -83,21 +84,66 @@ public class ApostaSimples implements ApostaComponent, Serializable{
         throw new UnsupportedOperationException("Not supported.");
     }
     
-    public double terminaEvento(int idEvento, int resultado_evento){
+    /*
+    public double terminaEvento(int idEvento, int resultado_evento, List<String> notificacoes){
         double saldo=0;
         if (resultado_final!=-1){
-                if (this.getResultado_final() == this.getResultado_apostado())    return -2; // evento já terminado  e aposta foi ganha
+                if (this.getResultado_final() == this.getResultado_apostado()) return -2; // evento já terminado  e aposta foi ganha
                 else return -1; // evento terminado e aposta perdida
             
         }
         if (this.evento.getId() == idEvento){
                 this.setResultado_final(resultado_evento);
-                if (this.getResultado_final() == this.getResultado_apostado() )
+                if (this.getResultado_final() == this.getResultado_apostado()){
                     saldo += this.getQuantia() * this.getOdd(); // retorna quantia a aumentar ao saldo
-                else return -1; //perdeu aposta
+                    if (this.id != -1)
+                        notificacoes.add("Ganhou a aposta com o id " + this.id
+                                         + ", respetiva ao evento " + this.evento.getEquipa_1()
+                                         + " X " + this.evento.getEquipa_2()
+                                         + ", o seu saldo foi incrementado em " + saldo + " ESScoins");
+                }
+                else{
+                    notificacoes.add("Perdeu a aposta com o id " + this.id
+                                     + ", respetiva ao evento " + this.evento.getEquipa_1()
+                                     + " X " + this.evento.getEquipa_2()
+                                     + ", na qual apostou " + this.quantia + " ESScoins");
+                    return -1;
+                } //perdeu aposta
         } 
-        
         return saldo ;
+    }
+*/
+    
+    // -1 -> nao é o mesmo evento; 
+    // -2 -> ja terminou antes;
+    // -3 -> errou e é aposta simples;
+    // -4 -> errou e faz parte de multipla;
+    // 0 -> acertou e faz parte de uma multipla;
+    // > 0 -> acertou e é uma unica aposta;
+    public double terminaEvento(int idEvento, int resultado_evento, List<String> notificacoes){
+        if (idEvento != this.evento.getId()) return -1;
+        if (this.resultado_final != -1) return -2;
+        this.resultado_final = resultado_evento;
+        if (this.resultado_apostado == this.resultado_final){
+            if (this.id != -1){ // acertou e é uma unica aposta;
+                notificacoes.add("Ganhou a aposta com o id " + this.id
+                                         + ", respetiva ao evento " + this.evento.getEquipa_1()
+                                         + " X " + this.evento.getEquipa_2()
+                                         + ", o seu saldo foi incrementado em " + this.quantia * this.odd + " ESScoins");
+                return this.quantia * this.odd;
+            }
+            else return 0;
+        }
+        else{
+            if (this.id != -1){ // errou e é aposta simples
+                notificacoes.add("Perdeu a aposta com o id " + this.id
+                                 + ", respetiva ao evento " + this.evento.getEquipa_1()
+                                 + " X " + this.evento.getEquipa_2()
+                                 + ", na qual apostou " + this.quantia + " ESScoins");
+                return -3;
+            }
+            else return -4;
+        }
     }
     
     public void show(){

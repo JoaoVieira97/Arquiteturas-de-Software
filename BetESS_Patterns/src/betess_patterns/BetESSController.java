@@ -101,11 +101,18 @@ public class BetESSController {
         Menu menu = view.getMenu(2);
         String opcao;
         do {
-            menu.show();
+            List<String> noti = ((Apostador) model.getUtilizador(email)).getNotificacoes();
+            if (noti.isEmpty()) menu.show();
+            else this.view.menuApostadorNotificacoes(noti.size()).show();
             Scanner scan = new Scanner(System.in);
             opcao = scan.next();
             opcao = opcao.toUpperCase();
             switch(opcao) {
+                case "N" :
+                    if (noti.isEmpty()){ System.out.println("Opcão Inválida!"); break;}
+                    this.view.printNotificacoes(noti);
+                    ((Apostador) model.getUtilizador(email)).cleanNotificacoes();
+                    break;
                 case "E" :
                     mostrarEventos();
                     break;
@@ -126,7 +133,7 @@ public class BetESSController {
                 default: System.out.println("Opcão Inválida!"); break;
             }
         } while(!opcao.equals("S"));
-        System.out.println("Até à próxima visita " + model.getUtilizador(email).getNome() + "!");
+        System.out.println("Até à próxima visita " + this.model.getUtilizador(email).getNome() + "!");
     }
     
     public void mostrarEventos(){

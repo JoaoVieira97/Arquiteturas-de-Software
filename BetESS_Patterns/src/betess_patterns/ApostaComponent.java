@@ -1,10 +1,12 @@
 package betess_patterns;
 
+import java.util.List;
+
 public interface ApostaComponent {
     
     public void show();
     
-    public double terminaEvento(int idEvento, int resultado);
+    public double terminaEvento(int idEvento, int resultado, List<String> notificacoes);
     
     public void add(ApostaComponent a);
     

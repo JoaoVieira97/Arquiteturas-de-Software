@@ -1,6 +1,8 @@
 package betess_patterns;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Apostador extends Utilizador implements Observer, Serializable{
     
@@ -8,6 +10,7 @@ public class Apostador extends Utilizador implements Observer, Serializable{
     private ApostaComponent apostas;
     private FactoryApostas fabricaAp;
     private StrategyApostasContext sac;
+    private List<String> notificacoes;
     
     public Apostador(String email, String password, String nome, double saldo){
         super(email,password,nome);
@@ -15,6 +18,7 @@ public class Apostador extends Utilizador implements Observer, Serializable{
         this.apostas = new ConjuntoApostas();
         this.fabricaAp = new FactoryApostas();
         this.sac = new StrategyApostasContext();
+        this.notificacoes = new ArrayList<>();
     }
 
     public double getSaldo() {
@@ -41,9 +45,22 @@ public class Apostador extends Utilizador implements Observer, Serializable{
         this.fabricaAp = fabricaAp;
     }
     
+    public List<String> getNotificacoes(){
+        return this.notificacoes;
+    }
+    
+    public void cleanNotificacoes(){
+        this.notificacoes.clear();
+    }
+    
+    public void addNotificacao(String notificacao){
+        this.notificacoes.add(notificacao);
+    }
+    
     public void update(int idEvento, int resultado){
-        this.saldo+= this.getApostas().terminaEvento(idEvento, resultado);
-
+        List<String> novas_notificacoes = new ArrayList<>();
+        this.saldo+= this.getApostas().terminaEvento(idEvento, resultado, novas_notificacoes);
+        novas_notificacoes.forEach(n -> this.notificacoes.add(n));
     }
     
     public boolean saldoSufiente(double quantia) {
