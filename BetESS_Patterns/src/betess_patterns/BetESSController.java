@@ -409,6 +409,9 @@ public class BetESSController {
                 case "O" :
                     observarEvento(email);
                     break;
+                case "B" :
+                    mostrarObservarAposta(email);
+                    break;
                 case "T" :
                     terminarEvento();
                     break;
@@ -588,6 +591,54 @@ public class BetESSController {
         }
         evento.notifyObservers(id, resultado);
         System.out.println("Evento encerrado com sucesso");
+    }
+
+    private void mostrarObservarAposta(String emailFunc) {
+        
+        Menu menu = this.view.getMenu(8);
+        String opcao;
+        do{
+            menu.show();
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.next();
+            opcao = opcao.toUpperCase();
+            switch(opcao) {
+                case "M":
+                    this.model.showApostas();
+                    break;
+                case "O":
+                    observarAposta(emailFunc);
+                    break;
+                case "V":
+                    break;
+                default: System.out.println("Opcão Inválida!"); break;
+                
+            }
+        } while(!opcao.equals("V"));
+        
+    }
+    private void observarAposta(String emailFunc) {
+                
+        
+        System.out.println("Insira o email do apostador que pretende observar:");
+        Scanner scanE = new Scanner(System.in);
+        String email = scanE.nextLine();
+        if (!this.model.existeUtilizador(email)){
+            System.out.println("Não existe o apostador com o email inserido");
+            return;
+        }     
+        System.out.println("Insira o id da aposta do apostador "+ email +" que pretende observar:");
+        Scanner scanI = new Scanner(System.in);
+        int id = scanI.nextInt();
+        if (!this.model.existeAposta(email,id)){
+            System.out.println("Não existe a aposta com o id inserido");
+            return;
+        }
+        
+        ApostaComponent aposta = this.model.getAposta(email,id) ;
+        Observer func = (Funcionario) this.model.getUtilizador(emailFunc);
+        aposta.registerObserver(func);
+        System.out.println("Será notificado quando esta aposta sofrer alterações!");
     }
 
 }

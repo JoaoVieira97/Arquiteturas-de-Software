@@ -101,5 +101,46 @@ public class BetESSModel implements Serializable{
         this.sec.sortEventos(eventos);
     }
 
-    
+    public Map<String,ApostaComponent> getApostas(){
+        Map<String,ApostaComponent> apostas = new HashMap<>(); 
+        for ( Utilizador utilizador : this.utilizadores.values()){
+            if (utilizador instanceof Apostador) {
+                Apostador ap = (Apostador) utilizador;
+                apostas.put(ap.getApostas().emailApostador(),ap.getApostas());
+            }
+        }
+        return apostas;
+    }
+    public void showApostas() {
+        for ( Utilizador utilizador : this.utilizadores.values()){
+            if (utilizador instanceof Apostador) {
+                Apostador ap = (Apostador) utilizador;
+                ConjuntoApostas apostas = (ConjuntoApostas) ap.getApostas();
+                if(!apostas.getComponents().isEmpty()){
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("Apostas do Apostador "+ ap.getEmail());
+                    ap.getApostas().show();
+                    System.out.println("---------------------------------------------------------");
+                }
+            }
+        }
+    }
+
+    boolean existeAposta(String email, int id) {
+        Apostador apostador = (Apostador) this.utilizadores.get(email);
+        ConjuntoApostas apostas= (ConjuntoApostas) apostador.getApostas();
+        for (ApostaComponent ap : apostas.getComponents() ) {
+            if (ap.getId() == id ) return true;
+        }
+        return false;    
+    }
+
+    ApostaComponent getAposta(String email, int id) {
+        Apostador apostador = (Apostador) this.utilizadores.get(email);
+        ConjuntoApostas apostas= (ConjuntoApostas) apostador.getApostas();
+        for (ApostaComponent ap : apostas.getComponents() ) {
+            if (ap.getId()==id ) return ap;
+        }
+        return null;
+    }
 }

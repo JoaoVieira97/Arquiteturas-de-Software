@@ -20,4 +20,9 @@ public interface ApostaComponent {
     
     public double ganhoOuPerda();
     
+    public String emailApostador();
+   
+    public int getId();
+
+    public void registerObserver(Observer func);
 }

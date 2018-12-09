@@ -90,11 +90,16 @@ public class Apostador extends Utilizador implements Observer, Serializable{
     }
     
     public void apostaSimples(int resultado_apostado ,double quantia, double odd, Evento evento){
-        this.fabricaAp.factoryApSimples(this.apostas, resultado_apostado, quantia, odd, evento);
+        this.fabricaAp.factoryApSimples(this.apostas, resultado_apostado, quantia, odd, evento,this.getEmail());
     }
     
     public void apostaMultipla(double quantia, int[] resultados, Evento[] eventos){
-        this.fabricaAp.factoryApMultiplas(this.apostas, quantia, resultados, eventos);
+        this.fabricaAp.factoryApMultiplas(this.apostas, quantia, resultados, eventos,this.getEmail());
+    }
+
+    @Override
+    public void update(List<String> notificacoes) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

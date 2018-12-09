@@ -38,14 +38,15 @@ public class BetESSView {
 	menus.addMenu(2, menuApostador);
             
         //Menu Funcionário - número 3
-        Opcao op31, op32, op33, op34, op35, op36;
+        Opcao op31, op32, op33, op34, op35, op36, op37;
         op31 = new Opcao("Ver eventos ...................... ", "E");
         op32 = new Opcao("Adicionar evento ................. ", "A");
         op33 = new Opcao("Modificar eventos ................ ", "M");
         op34 = new Opcao("Observar evento .................. ", "O");
+        op37 = new Opcao("Mostrar/Observar Apostas ......... ", "B");
         op35 = new Opcao("Terminar evento .................. ", "T");
         op36 = new Opcao("Menu Inicial >>>>>>>>>>>>>>>>>>>>> ", "S");
-        List<Opcao> linhas3 = Arrays.asList(op31, op32, op33, op34, op35, op36);
+        List<Opcao> linhas3 = Arrays.asList(op31, op32, op33, op34,op37 ,op35, op36);
         Menu menuFuncionario = new Menu(linhas3, "BetESS - Menu do Funcionário");
         menus.addMenu(3, menuFuncionario);
             
@@ -90,6 +91,15 @@ public class BetESSView {
 	List<Opcao> linhas7 = Arrays.asList(op71, op72, op73, op74, op75);
 	Menu menuVerApostas = new Menu(linhas7, "BetESS - Ver Apostas");        
 	menus.addMenu(7, menuVerApostas);
+        
+        //Menu ver/observar Apostas do funcionário - número 8
+        Opcao op81, op82, op83;
+	op81 = new Opcao("Mostrar Apostas .................. ", "M");
+	op82 = new Opcao("Observar Aposta .................. ", "O");
+        op83 = new Opcao("Voltar >>>>>>>>>>>>>>>>>>>>>>>>>>> ", "V");
+	List<Opcao> linhas8 = Arrays.asList(op81, op82, op83);
+	Menu menuVerObservarApostas = new Menu(linhas8, "BetESS - Mostrar/Observar Apostas");        
+	menus.addMenu(8, menuVerObservarApostas);
             
         return menus;   
     }

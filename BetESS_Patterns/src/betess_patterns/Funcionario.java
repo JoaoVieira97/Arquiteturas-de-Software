@@ -29,5 +29,9 @@ public class Funcionario extends Utilizador implements Observer, Serializable{
     public void cleanNotificacoes(){
         this.notificacoes.clear();
     }
+
+    public void update(List<String> notificacoes) {
+        notificacoes.forEach(n->this.notificacoes.add(n));
+    }
     
 }

@@ -1,9 +1,10 @@
 package betess_patterns;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ApostaSimples implements ApostaComponent, Serializable{
+public class ApostaSimples implements ApostaComponent,Subject,Serializable{
     
     // se id = -1 -> aposta faz parte de uma múltipla
     private int id;
@@ -14,14 +15,18 @@ public class ApostaSimples implements ApostaComponent, Serializable{
     // -1 - aberto, 0 - vitória equipa_1, 1 - empate, 2 - vitória equipa_2
     private int resultado_final;
     private Evento evento;
+    private String emailApostador;
+    private List<Observer> observers;
     
-    public ApostaSimples(int id, int resultado_apostado, double quantia, double odd, Evento evento) {
+    public ApostaSimples(int id, int resultado_apostado, double quantia, double odd, Evento evento, String email) {
         this.id = id;
         this.resultado_apostado = resultado_apostado;
         this.resultado_final = -1;
         this.quantia = quantia;
         this.odd = odd;
         this.evento = evento;
+        this.emailApostador=email;
+        this.observers= new ArrayList<>();
     }
 
     public int getId() {
@@ -101,15 +106,18 @@ public class ApostaSimples implements ApostaComponent, Serializable{
                                          + " X " + this.evento.getEquipa_2()
                                          + ", o seu saldo foi incrementado em " + saldo + " ESScoins");
                         this.evento.changeBalanco(-saldo);
+                        this.notifyObservers(notificacoes);
                     }
                     return saldo;
                 }
                 else{
-                    if (this.id != -1)
+                    if (this.id != -1){
                     notificacoes.add("Perdeu a aposta com o id " + this.id
                                      + ", respetiva ao evento " + this.evento.getEquipa_1()
                                      + " X " + this.evento.getEquipa_2()
                                      + ", na qual apostou " + this.quantia + " ESScoins");
+                    this.notifyObservers(notificacoes);
+                    }
                     return -1;
                 } //perdeu aposta
         } 
@@ -193,4 +201,31 @@ public class ApostaSimples implements ApostaComponent, Serializable{
         if (this.resultado_final == this.resultado_apostado) return this.odd *this.quantia;
         else return this.quantia * -1 ;
     }
+
+    @Override
+    public String emailApostador() {
+        return this.emailApostador;
+    }
+
+    public void registerObserver(Observer o){
+        if(!this.observers.contains(o))
+            this.observers.add(o);
+    }
+    
+    
+    public void removeObserver(Observer o){
+        this.observers.remove(o);
+    }
+    
+    public void notifyObservers(List<String> notificacoes){
+        for (Observer o : this.observers)
+            if (o instanceof Funcionario) o.update(notificacoes);
+    }
+
+    @Override
+    public void notifyObservers(int idEvento, int resultado) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }
