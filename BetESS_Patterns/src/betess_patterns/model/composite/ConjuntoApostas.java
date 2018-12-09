@@ -132,7 +132,7 @@ public class ConjuntoApostas implements ApostaComponent,Subject, Serializable{
                     estado = "aposta ganha";
                     break;
             }
-            System.out.println("\nid = " + this.id + ", odd = " + this.odd() + 
+            System.out.println("\nApostador: "+this.emailApostador()+ "\tid = " + this.id + ", odd = " + this.odd() + 
                                ", quantia = " + quantia +
                                " ESScoins, possíveis ganhos = " + this.possiveisGanhos() +
                                " ESScoins, estado = " + estado);

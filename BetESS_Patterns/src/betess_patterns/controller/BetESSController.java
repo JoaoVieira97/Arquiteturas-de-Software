@@ -10,6 +10,7 @@ import betess_patterns.view.Menu;
 import betess_patterns.view.BetESSView;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -614,7 +615,8 @@ public class BetESSController {
             opcao = opcao.toUpperCase();
             switch(opcao) {
                 case "M":
-                    this.model.showApostas();
+                    ApostaComponent apostas = this.model.getApostas();
+                    this.view.printListaApostas(apostas);
                     break;
                 case "O":
                     observarAposta(emailFunc);

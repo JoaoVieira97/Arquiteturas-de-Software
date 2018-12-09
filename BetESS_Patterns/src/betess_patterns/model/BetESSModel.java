@@ -7,6 +7,8 @@ import betess_patterns.model.strategy.SortNumApostas;
 import betess_patterns.model.iterator.AggregateEEquipa;
 import betess_patterns.model.iterator.AggregateECompeticao;
 import betess_patterns.model.iterator.AggregateE;
+import betess_patterns.model.strategy.SortValorApostado;
+import betess_patterns.model.strategy.StrategyApostasContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -108,28 +110,32 @@ public class BetESSModel implements Serializable{
         this.sec.sortEventos(eventos);
     }
 
-    public Map<String,ApostaComponent> getApostas(){
-        Map<String,ApostaComponent> apostas = new HashMap<>(); 
-        for ( Utilizador utilizador : this.utilizadores.values()){
-            if (utilizador instanceof Apostador) {
-                Apostador ap = (Apostador) utilizador;
-                apostas.put(ap.getApostas().emailApostador(),ap.getApostas());
-            }
-        }
-        return apostas;
-    }
-    public void showApostas() {
+    public Map<String,ApostaComponent> getApostasMap(){
+        Map<String,ApostaComponent> r = new HashMap<>(); 
         for ( Utilizador utilizador : this.utilizadores.values()){
             if (utilizador instanceof Apostador) {
                 Apostador ap = (Apostador) utilizador;
                 ConjuntoApostas apostas = (ConjuntoApostas) ap.getApostas();
-                if(!apostas.getComponents().isEmpty()){
-                    System.out.println("---------------------------------------------------------");
-                    System.out.println("Apostas do Apostador "+ ap.getEmail());
-                    ap.getApostas().show();
-                }
+                r.put(ap.getApostas().emailApostador(),apostas  );
             }
         }
+        return r;
+    }
+    public ApostaComponent getApostas(){
+        List<ApostaComponent> r = new ArrayList<>();
+        ConjuntoApostas ac = new ConjuntoApostas();
+        StrategyApostasContext sac = new StrategyApostasContext();
+        for ( Utilizador utilizador : this.utilizadores.values()){
+            if (utilizador instanceof Apostador) {
+                Apostador ap = (Apostador) utilizador;
+                ConjuntoApostas apostas = (ConjuntoApostas) ap.getApostas();
+                r.add(apostas);
+                ac.add(apostas);
+            }
+        }
+        sac.setStrategy(new SortValorApostado());
+        sac.sortApostas(ac);
+        return ac;
     }
 
     public boolean existeAposta(String email, int id) {
