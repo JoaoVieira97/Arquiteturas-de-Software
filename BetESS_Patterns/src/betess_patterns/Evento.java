@@ -46,10 +46,10 @@ public class Evento implements Subject, Serializable{
     }
     
     public void notifyObservers(int idEvento, int resultado){
-        for (Observer o : this.observers){
+        for (Observer o : this.observers)
             if (o instanceof Apostador) o.update(idEvento, resultado);
-            else if (o instanceof Funcionario) o.update(idEvento, this.equipa_1, this.equipa_2, this.balanco);
-        }
+        for (Observer o : this.observers)
+            if (o instanceof Funcionario) o.update(idEvento, this.equipa_1, this.equipa_2, this.balanco);
     }
     
     public void changeBalanco(double quantia){

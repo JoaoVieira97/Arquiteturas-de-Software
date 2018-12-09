@@ -95,11 +95,13 @@ public class ApostaSimples implements ApostaComponent, Serializable{
                 this.setResultado_final(resultado_evento);
                 if (this.getResultado_final() == this.getResultado_apostado()){
                     saldo += this.getQuantia() * this.getOdd(); // retorna quantia a aumentar ao saldo
-                    if (this.id != -1)
+                    if (this.id != -1){
                         notificacoes.add("Ganhou a aposta com o id " + this.id
                                          + ", respetiva ao evento " + this.evento.getEquipa_1()
                                          + " X " + this.evento.getEquipa_2()
                                          + ", o seu saldo foi incrementado em " + saldo + " ESScoins");
+                        this.evento.changeBalanco(-saldo);
+                    }
                     return saldo;
                 }
                 else{

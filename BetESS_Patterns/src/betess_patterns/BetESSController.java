@@ -380,17 +380,23 @@ public class BetESSController {
     }
     
     //-----------------------------FUNCIONÁRIO-----------------------------
-    
-
+        
     private void flowFuncionario(String email) {
         Menu menu = view.getMenu(3);
         String opcao;
         do {
-            menu.show();
+            List<String> noti = ((Funcionario) model.getUtilizador(email)).getNotificacoes();
+            if (noti.isEmpty()) menu.show();
+            else this.view.menuFuncionarioNotificacoes(noti.size()).show();
             Scanner scan = new Scanner(System.in);
             opcao = scan.next();
             opcao = opcao.toUpperCase();
             switch(opcao) {
+                case "N" :
+                    if (noti.isEmpty()){ System.out.println("Opcão Inválida!"); break;}
+                    this.view.printNotificacoes(noti);
+                    ((Funcionario) model.getUtilizador(email)).cleanNotificacoes();
+                    break;
                 case "E" :
                     mostrarEventos();
                     break;
@@ -547,6 +553,7 @@ public class BetESSController {
         Evento evento = this.model.getEvento(id);
         Funcionario func = (Funcionario) this.model.getUtilizador(email);
         evento.registerObserver(func);
+        System.out.println("Será notificado sobre o balanço das apostas simples deste evento assim que terminado!");
     }
     
     private void terminarEvento(){

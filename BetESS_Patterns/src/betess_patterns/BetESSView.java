@@ -155,4 +155,18 @@ public class BetESSView {
 	return menuApostador;
     }
     
+    public Menu menuFuncionarioNotificacoes(int notificacoes){
+        Opcao op31, op32, op33, op34, op35, op36, op37;
+        op31 = new Opcao("VER NOTIFICAÇÕES (" + notificacoes + ") ............. ", "N");
+        op32 = new Opcao("Ver eventos ...................... ", "E");
+        op33 = new Opcao("Adicionar evento ................. ", "A");
+        op34 = new Opcao("Modificar eventos ................ ", "M");
+        op35 = new Opcao("Observar evento .................. ", "O");
+        op36 = new Opcao("Terminar evento .................. ", "T");
+        op37 = new Opcao("Menu Inicial >>>>>>>>>>>>>>>>>>>>> ", "S");
+        List<Opcao> linhas3 = Arrays.asList(op31, op32, op33, op34, op35, op36, op37);
+        Menu menuFuncionario = new Menu(linhas3, "BetESS - Menu do Funcionário");
+        return menuFuncionario;
+    }
+    
 }

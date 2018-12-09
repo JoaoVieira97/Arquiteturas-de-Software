@@ -1,6 +1,7 @@
 package betess_patterns;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Funcionario extends Utilizador implements Observer, Serializable{
@@ -9,6 +10,7 @@ public class Funcionario extends Utilizador implements Observer, Serializable{
     
     public Funcionario(String email, String password, String nome){
         super(email, password, nome);
+        this.notificacoes = new ArrayList<String>();
     }
     
     public void update(int idEvento, int resultado){
