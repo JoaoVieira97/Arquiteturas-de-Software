@@ -159,7 +159,7 @@ public class BetESSController {
             return;
         }
         Apostador apostador = (Apostador) this.model.getUtilizador(email);
-        view.println("Indique a quantia que pretende a apostar: (Pode apostar até " + apostador.getSaldo() + " BetESSCoins)");
+        view.println("Indique a quantia que pretende a apostar: (Pode apostar até " + apostador.getSaldo() + " ESScoins)");
         Scanner scanD = new Scanner(System.in);
         double quantia = scanD.nextDouble();
         if (!apostador.saldoSufiente(quantia)){
@@ -196,7 +196,7 @@ public class BetESSController {
     }
 
     private void imprimeSaldo(String email){
-        view.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo());
+        view.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo() + " ESScoins");
     }
     
     private void carregarConta(String email){
@@ -206,7 +206,7 @@ public class BetESSController {
         double q = scan.nextDouble();
         double novo_saldo = ((Apostador) this.model.getUtilizador(email)).getSaldo() + q;
         ((Apostador) this.model.getUtilizador(email)).setSaldo(novo_saldo);
-        view.println("Carregamento efetuado com sucesso! O seu saldo é de agora " + novo_saldo + " BetESSCoins");
+        view.println("Carregamento efetuado com sucesso! O seu saldo é de agora " + novo_saldo + " ESScoins");
     }
     
     //------------------------------FUNCIONÁRIO------------------------------

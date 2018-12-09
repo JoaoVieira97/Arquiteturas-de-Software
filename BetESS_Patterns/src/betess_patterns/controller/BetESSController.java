@@ -597,7 +597,7 @@ public class BetESSController {
             case "1": resultado = 0; break;
             case "X": resultado = 1; break;
             case "2": resultado = 2; break;
-            default: break;
+            default: System.out.println("Resultado inválido!"); break;
         }
         evento.notifyObservers(id, resultado);
         System.out.println("Evento encerrado com sucesso");
