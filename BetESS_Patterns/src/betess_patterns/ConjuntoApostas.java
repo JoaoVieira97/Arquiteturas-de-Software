@@ -107,50 +107,6 @@ public class ConjuntoApostas implements ApostaComponent,Subject, Serializable{
         }
     }
     
-   /* public double terminaEvento(int idEvento, int resultado, List<String> notificacoes){
-        double inc = 0;
-        List<Double> resultados = new ArrayList<>();
-        for (ApostaComponent ap : this.components){
-                resultados.add(ap.terminaEvento(idEvento, resultado, notificacoes));
-        }
-        if (this.id != -1){ // aposta múltipla
-            int certo = 0; int errado = 0;
-            for (double r : resultados){
-                if (r == 0) certo++;
-                if (r == -4) errado++;
-            }
-            if (certo == resultados.size()){ //ganhou multipla
-                inc = this.quantia * this.odd();
-                notificacoes.add("Ganhou a aposta múltipla com o id " + this.id
-                                 + ", com o terminar do evento " + idEvento
-                                 + ", o seu saldo foi incrementado em " + inc + " ESScoins");
-                return inc;
-            }
-            if (errado > 0){ //perdeu multipla
-                notificacoes.add("Perdeu a aposta múltipla com o id " + this.id
-                                 + ", dado o terminar do evento " + idEvento
-                                 + ", na qual apostou " + this.quantia + " ESScoins");
-                return 0;
-            }
-            if (certo > 0){ //continua em aberto a multipla mas acertou no evento
-                boolean temId = false;
-                for (ApostaComponent ap : this.components){
-                    if (((ApostaSimples) ap).getId() == idEvento) temId = true;
-                }
-                notificacoes.add("Com o fim do evento " + idEvento + ", a aposta múltipla com o id "
-                                 + this.id + " continua em aberto");
-                return 0;
-            }
-            else return 0;
-        }
-        else{ // conjunto de apostas
-            for (double r : resultados){
-                if (r > 0) inc += r;
-            }
-            return inc;
-        }
-    }
-    */
     public double odd(){
         double odd = 1;
         for (ApostaComponent a : this.components){
@@ -210,8 +166,11 @@ public class ConjuntoApostas implements ApostaComponent,Subject, Serializable{
     }
     
     public void notifyObservers(List<String> notificacoes){
+        List<String> n = new ArrayList<>();
+        for (String noti : notificacoes)
+            n.add(this.emailApostador + ": " + noti);
         for (Observer o : this.observers)
-            if (o instanceof Funcionario) o.update(notificacoes);
+            if (o instanceof Funcionario) o.update(n);
     }
 
     @Override

@@ -120,7 +120,6 @@ public class BetESSModel implements Serializable{
                     System.out.println("---------------------------------------------------------");
                     System.out.println("Apostas do Apostador "+ ap.getEmail());
                     ap.getApostas().show();
-                    System.out.println("---------------------------------------------------------");
                 }
             }
         }
