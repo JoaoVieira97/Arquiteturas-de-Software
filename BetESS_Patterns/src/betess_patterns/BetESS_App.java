@@ -1,5 +1,9 @@
 package betess_patterns;
 
+import betess_patterns.model.BetESSModel;
+import betess_patterns.controller.BetESSController;
+import betess_patterns.view.BetESSView;
+
 
 public class BetESS_App {
     

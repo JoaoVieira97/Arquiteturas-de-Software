@@ -1,5 +1,6 @@
 package betess_patterns;
 
+import betess_patterns.model.BetESSModel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
