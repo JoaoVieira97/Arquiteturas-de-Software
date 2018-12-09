@@ -125,5 +125,10 @@ public class Evento implements Subject, Serializable{
     public void incNumApostas() {
         this.num_apostas++;
     }
+
+    @Override
+    public void notifyObservers(List<String> notificacoes) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
