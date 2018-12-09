@@ -84,18 +84,15 @@ public class Apostador extends Utilizador implements Observer, Serializable{
         this.saldo -= quantia;
     }
     
-    public void showApostas(int strategy){
+    public ApostaComponent getApostas(int strategy){
         if (strategy == 1) this.sac.setStrategy(new SortPossiveisGanhos());
         else if (strategy == 2) this.sac.setStrategy(new SortGanhos());
         else this.sac.setStrategy(new SortValorApostado());
             
         this.sac.sortApostas((ConjuntoApostas) this.apostas);
-        this.apostas.show();  
+        return this.apostas;
     }
     
-    public void showApostas( ) {
-        this.apostas.show();
-    }
     
     public void apostaSimples(int resultado_apostado ,double quantia, double odd, Evento evento){
         this.fabricaAp.factoryApSimples(this.apostas, resultado_apostado, quantia, odd, evento,this.getEmail());

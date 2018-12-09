@@ -1,6 +1,7 @@
 package betess_patterns.view;
 
 import betess_patterns.model.Evento;
+import betess_patterns.model.composite.ApostaComponent;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -116,6 +117,9 @@ public class BetESSView {
         return this.menus.get(indice);
     }
     
+    public void printListaApostas(ApostaComponent ap) {
+        ap.show();
+    }
     public void printCollectionEventos(String header, List<Evento> eventos){
         System.out.println(header);
         for(Evento e : eventos){

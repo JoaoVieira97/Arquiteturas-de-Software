@@ -186,18 +186,23 @@ public class BetESSController {
             Scanner scan = new Scanner(System.in);
             opcao = scan.next();
             opcao = opcao.toUpperCase();
+            ApostaComponent ap;
             switch(opcao) {
                 case "S":
-                    ((Apostador) this.model.getUtilizador(email)).showApostas();
+                    ap = ((Apostador) this.model.getUtilizador(email)).getApostas();
+                    this.view.printListaApostas(ap);
                     break;
                 case "G":
-                    ((Apostador) this.model.getUtilizador(email)).showApostas(2);
+                    ap = ((Apostador) this.model.getUtilizador(email)).getApostas(2);
+                    this.view.printListaApostas(ap);
                     break;
                 case "P":
-                    ((Apostador) this.model.getUtilizador(email)).showApostas(1);
+                    ap = ((Apostador) this.model.getUtilizador(email)).getApostas(1);
+                    this.view.printListaApostas(ap);
                     break;
                 case "A":
-                    ((Apostador) this.model.getUtilizador(email)).showApostas(3);
+                    ap = ((Apostador) this.model.getUtilizador(email)).getApostas(3);
+                    this.view.printListaApostas(ap);
                     break;
                 case "V":
                     break;
