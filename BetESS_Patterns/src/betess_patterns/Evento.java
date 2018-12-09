@@ -13,7 +13,8 @@ public class Evento implements Subject, Serializable{
     private double[] odds;
     private boolean disponibilidade;
     private int num_apostas;
-    private List<Observer> apostadores;
+    private List<Observer> observers;
+    private double balanco;
     
     public Evento(int id, String equipa_1, String equipa_2, String competicao, double odd_1, double odd_x, double odd_2, boolean disponibilidade, int num_apostas){
         this.id = id;
@@ -23,8 +24,9 @@ public class Evento implements Subject, Serializable{
         this.odds = new double[3];
         this.odds[0] = odd_1; this.odds[1] = odd_x; this.odds[2] = odd_2;
         this.disponibilidade = disponibilidade;
-        this.apostadores = new ArrayList<>();
+        this.observers = new ArrayList<>();
         this.num_apostas = num_apostas;
+        this.balanco = 0;
     }
     
     @Override
@@ -34,15 +36,22 @@ public class Evento implements Subject, Serializable{
     }
     
     public void registerObserver(Observer o){
-        this.apostadores.add(o);
+        this.observers.add(o);
     }
     
     public void removeObserver(Observer o){
-        this.apostadores.remove(o);
+        this.observers.remove(o);
     }
     
-    public void notifyObservers(int idEvento, int idResultado){
-        this.apostadores.forEach((Observer a) -> a.update( idEvento, idResultado));
+    public void notifyObservers(int idEvento, int resultado){
+        for (Observer o : this.observers){
+            if (o instanceof Apostador) o.update(idEvento, resultado);
+            else if (o instanceof Funcionario) o.update(idEvento, this.equipa_1, this.equipa_2, this.balanco);
+        }
+    }
+    
+    public void changeBalanco(double quantia){
+        this.balanco += quantia;
     }
 
     public int getId() {
@@ -101,12 +110,12 @@ public class Evento implements Subject, Serializable{
         this.num_apostas = num_apostas;
     }
 
-    public List<Observer> getApostadores() {
-        return apostadores;
+    public List<Observer> getObservers() {
+        return this.observers;
     }
 
-    public void setApostadores(List<Observer> apostadores) {
-        this.apostadores = apostadores;
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
     }
 
     void incNumApostas() {

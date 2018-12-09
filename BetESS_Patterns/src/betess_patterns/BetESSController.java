@@ -258,6 +258,7 @@ public class BetESSController {
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
                     evento.registerObserver(apostador);
                     evento.incNumApostas();
+                    evento.changeBalanco(quantia);
                     return;
                 case "X":
                     apostador.apostaSimples(1, quantia, evento.getOdds()[1], evento);
@@ -265,6 +266,7 @@ public class BetESSController {
                     System.out.println("Aposta realizada no empate!");
                     evento.registerObserver(apostador);
                     evento.incNumApostas();
+                    evento.changeBalanco(quantia);
                     return;
                 case "2":
                     apostador.apostaSimples(2, quantia, evento.getOdds()[2], evento);
@@ -272,6 +274,7 @@ public class BetESSController {
                     System.out.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
                     evento.registerObserver(apostador);
                     evento.incNumApostas();
+                    evento.changeBalanco(quantia);
                     return;
                 case "C":
                     break;
@@ -396,6 +399,9 @@ public class BetESSController {
                     break;
                 case "M" :
                     flowModificar();
+                    break;
+                case "O" :
+                    observarEvento(email);
                     break;
                 case "T" :
                     terminarEvento();
@@ -528,6 +534,19 @@ public class BetESSController {
         String competicao = scan.nextLine();
         evento.setCompeticao(competicao);
         System.out.println("Competição do evento modificada com sucesso");
+    }
+    
+    private void observarEvento(String email){
+        System.out.println("Insira o id do evento que pretende observar:");
+        Scanner scanI = new Scanner(System.in);
+        int id = scanI.nextInt();
+        if (!this.model.existeEvento(id)){
+            System.out.println("Não existe o evento com o id inserido");
+            return;
+        }
+        Evento evento = this.model.getEvento(id);
+        Funcionario func = (Funcionario) this.model.getUtilizador(email);
+        evento.registerObserver(func);
     }
     
     private void terminarEvento(){

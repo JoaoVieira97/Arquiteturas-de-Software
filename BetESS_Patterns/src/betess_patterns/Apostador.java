@@ -63,6 +63,10 @@ public class Apostador extends Utilizador implements Observer, Serializable{
         novas_notificacoes.forEach(n -> this.notificacoes.add(n));
     }
     
+    public void update(int idEvento, String equipa_1, String equipa_2, double valor){
+        throw new UnsupportedOperationException("Not supported.");
+    }
+    
     public boolean saldoSufiente(double quantia) {
         if(saldo >= quantia) return true;
         else return false;

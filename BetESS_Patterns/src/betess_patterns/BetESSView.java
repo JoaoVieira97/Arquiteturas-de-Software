@@ -38,13 +38,14 @@ public class BetESSView {
 	menus.addMenu(2, menuApostador);
             
         //Menu Funcionário - número 3
-        Opcao op31, op32, op33, op34, op35;
+        Opcao op31, op32, op33, op34, op35, op36;
         op31 = new Opcao("Ver eventos ...................... ", "E");
         op32 = new Opcao("Adicionar evento ................. ", "A");
         op33 = new Opcao("Modificar eventos ................ ", "M");
-        op34 = new Opcao("Terminar evento .................. ", "T");
-        op35 = new Opcao("Menu Inicial >>>>>>>>>>>>>>>>>>>>> ", "S");
-        List<Opcao> linhas3 = Arrays.asList(op31, op32, op33, op34, op35);
+        op34 = new Opcao("Observar evento .................. ", "O");
+        op35 = new Opcao("Terminar evento .................. ", "T");
+        op36 = new Opcao("Menu Inicial >>>>>>>>>>>>>>>>>>>>> ", "S");
+        List<Opcao> linhas3 = Arrays.asList(op31, op32, op33, op34, op35, op36);
         Menu menuFuncionario = new Menu(linhas3, "BetESS - Menu do Funcionário");
         menus.addMenu(3, menuFuncionario);
             
