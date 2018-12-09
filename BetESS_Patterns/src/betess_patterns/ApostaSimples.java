@@ -84,12 +84,11 @@ public class ApostaSimples implements ApostaComponent, Serializable{
         throw new UnsupportedOperationException("Not supported.");
     }
     
-    /*
     public double terminaEvento(int idEvento, int resultado_evento, List<String> notificacoes){
         double saldo=0;
         if (resultado_final!=-1){
                 if (this.getResultado_final() == this.getResultado_apostado()) return -2; // evento já terminado  e aposta foi ganha
-                else return -1; // evento terminado e aposta perdida
+                else return -3; // evento terminado e aposta perdida
             
         }
         if (this.evento.getId() == idEvento){
@@ -101,8 +100,10 @@ public class ApostaSimples implements ApostaComponent, Serializable{
                                          + ", respetiva ao evento " + this.evento.getEquipa_1()
                                          + " X " + this.evento.getEquipa_2()
                                          + ", o seu saldo foi incrementado em " + saldo + " ESScoins");
+                    return saldo;
                 }
                 else{
+                    if (this.id != -1)
                     notificacoes.add("Perdeu a aposta com o id " + this.id
                                      + ", respetiva ao evento " + this.evento.getEquipa_1()
                                      + " X " + this.evento.getEquipa_2()
@@ -110,9 +111,9 @@ public class ApostaSimples implements ApostaComponent, Serializable{
                     return -1;
                 } //perdeu aposta
         } 
-        return saldo ;
+        return -4 ; // aposta aberta
     }
-*/
+
     
     // -1 -> nao é o mesmo evento; 
     // -2 -> ja terminou antes;
@@ -120,7 +121,7 @@ public class ApostaSimples implements ApostaComponent, Serializable{
     // -4 -> errou e faz parte de multipla;
     // 0 -> acertou e faz parte de uma multipla;
     // > 0 -> acertou e é uma unica aposta;
-    public double terminaEvento(int idEvento, int resultado_evento, List<String> notificacoes){
+   /* public double terminaEvento(int idEvento, int resultado_evento, List<String> notificacoes){
         if (idEvento != this.evento.getId()) return -1;
         if (this.resultado_final != -1) return -2;
         this.resultado_final = resultado_evento;
@@ -145,7 +146,7 @@ public class ApostaSimples implements ApostaComponent, Serializable{
             else return -4;
         }
     }
-    
+    */
     public void show(){
         String ra;
         switch(this.resultado_apostado){

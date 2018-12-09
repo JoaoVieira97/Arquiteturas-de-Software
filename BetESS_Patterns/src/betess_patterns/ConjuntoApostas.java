@@ -47,14 +47,13 @@ public class ConjuntoApostas implements ApostaComponent, Serializable{
         this.components.get(i);
     }
     
-    /*
-    public double terminaEvento(int idEvento, int resultado, List<String> notificacoes){
-
+ public double terminaEvento(int idEvento, int resultado, List<String> notificacoes){
+        boolean apostaAberta= false;
         double saldo=0;
         int apostasAcabadas=0;
         List<Double> resultados = new ArrayList<>();
         for (ApostaComponent ap : this.components){
-                resultados.add(ap.terminaEvento(idEvento, resultado, notificacoes));
+               resultados.add(ap.terminaEvento(idEvento, resultado, notificacoes));
         }
         if (this.id == -1){
             for (Double res : resultados) if (res > 0) saldo += res;
@@ -62,25 +61,28 @@ public class ConjuntoApostas implements ApostaComponent, Serializable{
         }
         else {
             for (Double res : resultados){
-                if(res == -1){ //perdeu aposta
+                if(res == -1 || res ==-3){ //perdeu aposta
                     this.resultado_final = -1;
-                    notificacoes.add("Perdeu a aposta múltipla com o id " + this.id
+                    if (res==-1) notificacoes.add("Perdeu a aposta múltipla com o id " + this.id
                                      + ", dado o terminar do evento " + idEvento
                                      + ", na qual apostou " + this.quantia + " ESScoins");
                     return -1 ;
                 } 
-                if(res == 0){//aposta aberta
-                    boolean temId = false;
-                    for (ApostaComponent ap : this.components){
-                        if (((ApostaSimples) ap).getId() == idEvento) temId = true;
-                    }
-                    if (temId) notificacoes.add("Com o fim do evento " + idEvento + ", a aposta múltipla com o id "
-                                                + this.id + " continua em aberto");
-                    return 0 ;
+                if(res == -4){//aposta aberta
+                    apostaAberta= true;
                 }
                 if(res == -2) apostasAcabadas++; // apostaSimples ganha noutro evento
             }
             if (apostasAcabadas >= resultados.size()) return 0;
+            if (apostaAberta==true){
+                  boolean temId = false;
+                   for (ApostaComponent ap : this.components){
+                        if (((ApostaSimples) ap).getEvento().getId() == idEvento   )temId = true;
+                   }
+                   if (temId) notificacoes.add("Com o fim do evento " + idEvento + ", a aposta múltipla com o id "
+                                                + this.id + " continua em aberto");
+                   return 0;
+            }
             saldo = this.quantia * this.odd();
             this.resultado_final = 1; // ganhou aposta
             notificacoes.add("Ganhou a aposta múltipla com o id " + this.id
@@ -89,9 +91,8 @@ public class ConjuntoApostas implements ApostaComponent, Serializable{
             return saldo;
         }
     }
-*/
     
-    public double terminaEvento(int idEvento, int resultado, List<String> notificacoes){
+   /* public double terminaEvento(int idEvento, int resultado, List<String> notificacoes){
         double inc = 0;
         List<Double> resultados = new ArrayList<>();
         for (ApostaComponent ap : this.components){
@@ -134,7 +135,7 @@ public class ConjuntoApostas implements ApostaComponent, Serializable{
             return inc;
         }
     }
-    
+    */
     public double odd(){
         double odd = 1;
         for (ApostaComponent a : this.components){

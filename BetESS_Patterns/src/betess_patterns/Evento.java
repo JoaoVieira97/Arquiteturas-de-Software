@@ -36,8 +36,10 @@ public class Evento implements Subject, Serializable{
     }
     
     public void registerObserver(Observer o){
-        this.observers.add(o);
+        if(!this.observers.contains(o))
+            this.observers.add(o);
     }
+    
     
     public void removeObserver(Observer o){
         this.observers.remove(o);
