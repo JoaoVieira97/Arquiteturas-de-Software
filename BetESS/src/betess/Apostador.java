@@ -13,12 +13,14 @@ public class Apostador extends Utilizador implements Serializable{
     private int idAposta;
     private double saldo;
     private List<Aposta> apostas;
+    private List<String> notificacoes;
 
     public Apostador(String email, String password, String nome, double saldo){
         super(email,password,nome);
         this.saldo = saldo;
         this.apostas = new ArrayList<Aposta>();
         this.idAposta = 1;
+        this.notificacoes = new ArrayList<String>();
     }
 
     public double getSaldo() {
@@ -35,6 +37,18 @@ public class Apostador extends Utilizador implements Serializable{
 
     public void setApostas(List<Aposta> apostas) {
         this.apostas = apostas;
+    }
+    
+    public List<String> getNotificacoes(){
+        return this.notificacoes;
+    }
+    
+    public void cleanNotificacoes(){
+        this.notificacoes.clear();
+    }
+    
+    public boolean temNotificacoes(){
+        return !this.notificacoes.isEmpty();
     }
     
     public int newAposta (Integer resultado_evento, Integer resultado_aposta, double quantia, double odd, Evento evento){
@@ -57,8 +71,19 @@ public class Apostador extends Utilizador implements Serializable{
         for (Aposta aposta : this.apostas){
             if (aposta.getIdEvento() == idEvento){
                 aposta.setResultado_evento(resultado);
-                if (aposta.getResultado_evento() == aposta.getResultado_aposta())
+                if (aposta.getResultado_evento() == aposta.getResultado_aposta()){ //ganhou aposta
                     this.saldo += aposta.getQuantia() * aposta.getOdd();
+                    this.notificacoes.add("Ganhou a aposta com o id " + aposta.getId()
+                                         + ", respetiva ao evento " + aposta.getEvento().getEquipa_1()
+                                         + " X " + aposta.getEvento().getEquipa_2()
+                                         + ", o seu saldo foi incrementado em " + aposta.getQuantia() * aposta.getOdd() + " BetESScoins");
+                }
+                else{ //perdeu aposta
+                    this.notificacoes.add("Perdeu a aposta com o id " + aposta.getId()
+                                     + ", respetiva ao evento " + aposta.getEvento().getEquipa_1()
+                                     + " X " + aposta.getEvento().getEquipa_2()
+                                     + ", na qual apostou " + aposta.getQuantia() + " ESScoins");
+                }
             }
         }
     }

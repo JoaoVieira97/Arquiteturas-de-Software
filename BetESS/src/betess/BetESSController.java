@@ -96,16 +96,24 @@ public class BetESSController {
     }
     
     //------------------------------APOSTADOR------------------------------
-
+    
     private void flowApostador(String email) {
         Menu menu = view.getMenu(2);
+        Apostador a = (Apostador) this.model.getUtilizador(email);
         String opcao;
         do {
-            menu.show();
+            List<String> noti = a.getNotificacoes();
+            if (noti.isEmpty()) menu.show();
+            else this.view.menuApostadorNotificacoes(noti.size()).show();
             Scanner scan = new Scanner(System.in);
             opcao = scan.next();
             opcao = opcao.toUpperCase();
             switch(opcao) {
+                case "N" :
+                    if (noti.isEmpty()){ System.out.println("Opcão Inválida!"); break;}
+                    this.view.printNotificacoes(noti);
+                    a.cleanNotificacoes();
+                    break;
                 case "E" :
                     mostrarEventos();
                     break;
@@ -361,7 +369,7 @@ public class BetESSController {
                 case "1": resultado = 0; break;
                 case "X": resultado = 1; break;
                 case "2": resultado = 2; break;
-                default: break;
+                default: System.out.println("Resultado inválido!"); return;
             }
             Apostador apostador;
             for (String a : evento.getApostadores()){

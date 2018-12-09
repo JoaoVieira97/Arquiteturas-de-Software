@@ -102,4 +102,24 @@ public class BetESSView {
                 println(a.toString());
         }
     }
+    
+    public Menu menuApostadorNotificacoes(int n){
+        Opcao op21, op22, op23, op24, op25, op26, op27;
+        op21 = new Opcao("VER NOTIFICAÇÕES(" + n + ") ........ ", "N");
+	op22 = new Opcao("Ver eventos ................ ", "E");
+	op23 = new Opcao("Ver minhas apostas ......... ", "V");
+        op24 = new Opcao("Realizar nova aposta ....... ", "A");
+        op25 = new Opcao("Ver saldo da conta ......... ", "C");
+        op26 = new Opcao("Importar quantia ........... ", "I");
+        op27 = new Opcao("Menu Inicial >>>>>>>>>>>>>>> ", "S");
+	List<Opcao> linhas = Arrays.asList(op21, op22, op23, op24, op25, op26, op27);
+	Menu menuApostador = new Menu(linhas, "BetESS - Menu do Apostador");        
+	return menuApostador;
+    }
+    
+    public void printNotificacoes(List<String> notificacoes){
+        for (String n : notificacoes){
+            System.out.println(n + '\n');
+        }
+    }
 }
