@@ -73,9 +73,9 @@ public class BetESSView {
 
     public void menuEquipas(Evento evento, double valor) {
         System.out.println("Opções de aposta disponíveis no evento " + evento.getId() + ":");
-        System.out.println("1 - Vitória do/da " + evento.getEquipa_1() + " (" + evento.getOdds()[0] + ")  --> ganhos = " + (evento.getOdds()[0] * valor) + " BetESSCoins");
-        System.out.println("X - Empate (" + evento.getOdds()[1] + ")  --> ganhos = " + (evento.getOdds()[1] * valor) + " BetESSCoins");
-        System.out.println("2 - Vitória do/da " + evento.getEquipa_2() + " (" + evento.getOdds()[2] + ")  --> ganhos = " + (evento.getOdds()[2] * valor) + " BetESSCoins");
+        System.out.println("1 - Vitória do/da " + evento.getEquipa_1() + " (" + evento.getOdds()[0] + ")  --> ganhos = " + (evento.getOdds()[0] * valor) + " ESScoins");
+        System.out.println("X - Empate (" + evento.getOdds()[1] + ")  --> ganhos = " + (evento.getOdds()[1] * valor) + " ESScoins");
+        System.out.println("2 - Vitória do/da " + evento.getEquipa_2() + " (" + evento.getOdds()[2] + ")  --> ganhos = " + (evento.getOdds()[2] * valor) + " ESScoins");
         System.out.println("S >>> Cancelar aposta");
     }
     

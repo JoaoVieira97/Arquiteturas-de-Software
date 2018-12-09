@@ -34,7 +34,7 @@ public class Aposta implements Serializable{
         }
         double ganhos;
         ganhos = this.odd * this.quantia;
-        return "id = " + this.id + ", jogo: " + this.evento.getEquipa_1() + " X " + this.evento.getEquipa_2() + ", aposta realizada = " + ra + ", odd = " + this.odd + ", quantia = " + this.quantia + " BetESSCoins" + ", possíveis ganhos = " + ganhos + " BetESSCoins, estado = " + estado();
+        return "id = " + this.id + ", jogo: " + this.evento.getEquipa_1() + " X " + this.evento.getEquipa_2() + ", aposta realizada = " + ra + ", odd = " + this.odd + ", quantia = " + this.quantia + " ESScoins" + ", possíveis ganhos = " + ganhos + " ESScoins, estado = " + estado();
     }
     
     private String estado(){

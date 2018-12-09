@@ -47,10 +47,6 @@ public class Apostador extends Utilizador implements Serializable{
         this.notificacoes.clear();
     }
     
-    public boolean temNotificacoes(){
-        return !this.notificacoes.isEmpty();
-    }
-    
     public int newAposta (Integer resultado_evento, Integer resultado_aposta, double quantia, double odd, Evento evento){
         if(saldo >= quantia){
             Aposta aposta = new Aposta(this.idAposta, resultado_evento, resultado_aposta, quantia, odd, evento);
@@ -76,7 +72,7 @@ public class Apostador extends Utilizador implements Serializable{
                     this.notificacoes.add("Ganhou a aposta com o id " + aposta.getId()
                                          + ", respetiva ao evento " + aposta.getEvento().getEquipa_1()
                                          + " X " + aposta.getEvento().getEquipa_2()
-                                         + ", o seu saldo foi incrementado em " + aposta.getQuantia() * aposta.getOdd() + " BetESScoins");
+                                         + ", o seu saldo foi incrementado em " + aposta.getQuantia() * aposta.getOdd() + " ESScoins");
                 }
                 else{ //perdeu aposta
                     this.notificacoes.add("Perdeu a aposta com o id " + aposta.getId()
