@@ -134,7 +134,7 @@ public class ConjuntoApostas implements ApostaComponent,Subject, Serializable{
             }
             System.out.println("\nApostador: "+this.emailApostador()+ "\tid = " + this.id + ", odd = " + this.odd() + 
                                ", quantia = " + quantia +
-                               " ESScoins, possíveis ganhos = " + this.possiveisGanhos() +
+                               " ESScoins, possíveis ganhos = " + this.quantia * this.odd() +
                                " ESScoins, estado = " + estado);
         }
         this.components.forEach(ApostaComponent::show);

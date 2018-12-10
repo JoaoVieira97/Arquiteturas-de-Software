@@ -110,27 +110,14 @@ public class BetESSModel implements Serializable{
         this.sec.sortEventos(eventos);
     }
 
-    public Map<String,ApostaComponent> getApostasMap(){
-        Map<String,ApostaComponent> r = new HashMap<>(); 
-        for ( Utilizador utilizador : this.utilizadores.values()){
-            if (utilizador instanceof Apostador) {
-                Apostador ap = (Apostador) utilizador;
-                ConjuntoApostas apostas = (ConjuntoApostas) ap.getApostas();
-                r.put(ap.getApostas().emailApostador(),apostas  );
-            }
-        }
-        return r;
-    }
     public ApostaComponent getApostas(){
-        List<ApostaComponent> r = new ArrayList<>();
         ConjuntoApostas ac = new ConjuntoApostas();
         StrategyApostasContext sac = new StrategyApostasContext();
-        for ( Utilizador utilizador : this.utilizadores.values()){
+        for (Utilizador utilizador : this.utilizadores.values()){
             if (utilizador instanceof Apostador) {
                 Apostador ap = (Apostador) utilizador;
                 ConjuntoApostas apostas = (ConjuntoApostas) ap.getApostas();
-                r.add(apostas);
-                ac.add(apostas);
+                apostas.getComponents().forEach(a -> ac.add(a));
             }
         }
         sac.setStrategy(new SortValorApostado());
@@ -155,4 +142,5 @@ public class BetESSModel implements Serializable{
         }
         return null;
     }
+    
 }
