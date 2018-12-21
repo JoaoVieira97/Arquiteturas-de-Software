@@ -96,17 +96,29 @@ public class Controller_Apostador implements UserControllerInterface{
             Scanner scan = new Scanner(System.in);
             opcao = scan.next();
             opcao = opcao.toUpperCase();
+            Integer[] resultados= new Integer[2];
+            resultados[0]= -1;
+            double[] quantiaOdd = new double[2];
             switch(opcao) {
                 case "1" :
-                    apostador.newAposta(-1, 0, quantia, evento.getOdds()[0], evento); view.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
+                    resultados[1] = 0;
+                    quantiaOdd[0] = quantia;
+                    quantiaOdd[1]= evento.getOdds()[0];
+                    apostador.newAposta(resultados,quantiaOdd, evento); view.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
                     evento.addApostador(email);
                     return;
                 case "X" :
-                    apostador.newAposta(-1, 1, quantia, evento.getOdds()[1], evento); view.println("Aposta realizada no empate!");
+                    resultados[1] = 1;
+                    quantiaOdd[0] = quantia;
+                    quantiaOdd[1]= evento.getOdds()[1];
+                    apostador.newAposta(resultados,quantiaOdd, evento); view.println("Aposta realizada no empate!");
                     evento.addApostador(email);
                     return;
                 case "2" :
-                    apostador.newAposta(-1, 2, quantia, evento.getOdds()[2], evento); view.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
+                    resultados[1] = 2;
+                    quantiaOdd[0] = quantia;
+                    quantiaOdd[1]= evento.getOdds()[2];
+                    apostador.newAposta(resultados,quantiaOdd, evento); view.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
                     evento.addApostador(email);
                     return;
                 case "S":

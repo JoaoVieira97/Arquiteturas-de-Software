@@ -75,7 +75,14 @@ public class Controller_Funcionario implements UserControllerInterface{
             case "N": disponibilidade = false; break;
             default: view.println("Opção inválida"); return;
         }
-        this.model.addEvento(equipa_1, equipa_2, odd_1, odd_x, odd_2, disponibilidade);
+        String[] equipas = new String[2];
+        equipas[0] =  equipa_1;
+        equipas[1] =  equipa_2;
+        double[] odds = new double[3];
+        odds[0] =  odd_1;
+        odds[1] =  odd_x;
+        odds[2] = odd_2;
+        this.model.addEvento(equipas,odds, disponibilidade);
         view.println("Evento adicionado com sucesso");
     }
     

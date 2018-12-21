@@ -33,16 +33,16 @@ public class BetESSModel implements Serializable{
         return 0;
     }
     
-    public void addApostador(String email, String password, String nome, double saldo){
-        this.utilizadores.put(email, new Apostador(email, password, nome, saldo));
+    public void addApostador(String[] dados, double saldo){
+        this.utilizadores.put(dados[0], new Apostador(dados, saldo));
     }
     
     public void addFuncionario(String email, String password, String nome){
         this.utilizadores.put(email, new Funcionario(email, password, nome));
     }
     
-    public void addEvento(String equipa_1, String equipa_2, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
-        Evento novoEvento = new Evento(id_proximoEvento, equipa_1, equipa_2, odd_1, odd_x, odd_2, disponibilidade);
+    public void addEvento(String[] equipas, double[] odds, boolean disponibilidade){
+        Evento novoEvento = new Evento(id_proximoEvento, equipas , odds , disponibilidade);
         this.eventos.put(this.id_proximoEvento, novoEvento);
         this.id_proximoEvento++;
     }

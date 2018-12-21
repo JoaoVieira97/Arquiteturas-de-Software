@@ -101,7 +101,11 @@ public class BetESSController{
         view.println("Qual o valor que pretende carregar na sua conta?");
         Scanner scanD = new Scanner(System.in);
         double saldo = scanD.nextDouble();
-        model.addApostador(email, password, nome, saldo);
+        String[] dados = new String[3];
+        dados[0] = email;
+        dados[1] = password;
+        dados[2] = nome;
+        model.addApostador(dados, saldo);
         view.println("Registo efetuado com sucesso");
     }
 

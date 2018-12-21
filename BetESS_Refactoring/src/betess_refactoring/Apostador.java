@@ -15,8 +15,8 @@ public class Apostador extends Utilizador implements Serializable{
     private List<Aposta> apostas;
     private List<String> notificacoes;
 
-    public Apostador(String email, String password, String nome, double saldo){
-        super(email,password,nome);
+    public Apostador(String[] dados, double saldo){
+        super(dados[0],dados[1],dados[2]);
         this.saldo = saldo;
         this.apostas = new ArrayList<Aposta>();
         this.idAposta = 1;
@@ -47,12 +47,12 @@ public class Apostador extends Utilizador implements Serializable{
         this.notificacoes.clear();
     }
     
-    public int newAposta (Integer resultado_evento, Integer resultado_aposta, double quantia, double odd, Evento evento){
-        if(saldo >= quantia){
-            Aposta aposta = new Aposta(this.idAposta, resultado_evento, resultado_aposta, quantia, odd, evento);
+    public int newAposta (Integer[] resultados, double[] quantiaOdd, Evento evento){
+        if(saldo >= quantiaOdd[0]){
+            Aposta aposta = new Aposta(this.idAposta, resultados,quantiaOdd, evento);
             this.apostas.add(aposta);
             this.idAposta++;
-            this.saldo -= quantia;
+            this.saldo -= quantiaOdd[0];
             return 0;
         }
         return 1;

@@ -17,12 +17,11 @@ public class Evento implements Serializable{
     private boolean disponibilidade;
     private List<String> apostadores;
     
-    public Evento(int id, String equipa_1, String equipa_2, double odd_1, double odd_x, double odd_2, boolean disponibilidade){
+    public Evento(int id, String[] equipas, double[] odds, boolean disponibilidade){
         this.id = id;
-        this.equipa_1 = equipa_1;
-        this.equipa_2 = equipa_2;
-        this.odds = new double[3];
-        this.odds[0] = odd_1; this.odds[1] = odd_x; this.odds[2] = odd_2;
+        this.equipa_1 = equipas[0];
+        this.equipa_2 = equipas[1];
+        this.odds = odds;
         this.disponibilidade = disponibilidade;
         this.apostadores = new ArrayList<>();
     }

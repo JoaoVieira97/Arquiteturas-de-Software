@@ -14,12 +14,12 @@ public class Aposta implements Serializable{
     private double odd;
     private Evento evento;
 
-    public Aposta(int id, Integer resultado_evento, Integer resultado_aposta, double quantia, double odd, Evento evento) {
+    public Aposta(int id, Integer[] resultados, double[] quantiaOdd, Evento evento) {
         this.id = id;
-        this.resultado_evento = resultado_evento;
-        this.resultado_aposta = resultado_aposta;
-        this.quantia = quantia;
-        this.odd = odd;
+        this.resultado_evento = resultados[0];
+        this.resultado_aposta = resultados[1];
+        this.quantia = quantiaOdd[0];
+        this.odd = quantiaOdd[1];
         this.evento = evento;
     }
 
