@@ -41,8 +41,7 @@ public class Main {
             System.out.println("A criar dados...");
             model = addEventos(model);
             model = addApostadores(model);
-            model = addEventos(model);
-            
+            model = addFuncionarios(model);
         }
         return model;
     }

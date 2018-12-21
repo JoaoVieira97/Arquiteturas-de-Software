@@ -1,5 +1,6 @@
 package betess_refactoring;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class BetESSView {
     public Menu menuApostadorNotificacoes(int n){
         Opcao op21;
         op21 = new Opcao("VER NOTIFICAÇÕES(" + n + ") ........ ", "N");
-	List<Opcao> linhas = linhasApostadorBase();
+	List<Opcao> linhas = new ArrayList<>(linhasApostadorBase());
         linhas.add(0, op21);
 	Menu menuApostador = new Menu(linhas, "BetESS - Menu do Apostador");        
 	return menuApostador;
@@ -106,16 +107,18 @@ public class BetESSView {
     
     public void println(String str){ 
         System.out.println(str);
-
     }
+    
     public void print(String str){ 
         System.out.print(str);
     }
+    
     public void printEventos (List<Evento> lista) {
         println("Lista de eventos BetESS:");
         for (Evento e : lista)
             println(e.toString());
     }
+    
     public void printApostas (List<Aposta> apostas){
         if (apostas.isEmpty()) System.out.println("Não tem apostas realizadas");
         else{
