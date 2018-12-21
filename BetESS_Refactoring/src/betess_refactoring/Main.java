@@ -50,6 +50,16 @@ public class Main {
         BetESSController control = new BetESSController();
         control.setModel(model);
         control.setView(view);
+        
+        UserControllerInterface apostadorController = new Controller_Apostador();
+        apostadorController.setModel(model);
+        apostadorController.setView(view);
+        UserControllerInterface funcionarioController = new Controller_Funcionario();
+        funcionarioController.setModel(model);
+        funcionarioController.setView(view);
+        
+        control.setApostadorController(apostadorController);
+        control.setFuncionarioController(funcionarioController);
 
         control.startFlow();
         
