@@ -51,6 +51,7 @@ public class Main {
         model.addFuncionario("func2@gmail.com", "222", "Catarina Coelho");
         return model;
     }
+    
     public static BetESSModel addApostadores(BetESSModel model) {
         String[] dados = new String[3];
         
@@ -130,7 +131,6 @@ public class Main {
         odds[1]= 3.30;
         odds[2]= 2.40;
         model.addEvento(equipas,odds, true);
-        
         
         equipas[0] ="SD Huesca";
         equipas[1] = "Getafe CF";
