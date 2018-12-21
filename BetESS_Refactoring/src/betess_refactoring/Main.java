@@ -1,8 +1,5 @@
 package betess_refactoring;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 /**
  *
  * @author João Vieira & Simão Barbosa
@@ -11,19 +8,12 @@ public class Main {
     
     public static void main(String[] args){
         
-        BetESSModel model = new BetESSModel();
-        int carregado = 0;
+        BetESSModel model;
         
-        try{
-            model = BetESSModel.carregaEstado("dados.obj");
-            System.out.println("Dados carregados com sucesso!");
-            carregado = 1;
-        }
-        catch (FileNotFoundException ex) {System.out.println("Dados não importados! Ficheiro não encontrado.");}
-        catch (IOException ex) {System.out.println("Dados não importados! Erro a aceder a ficheiro.");}
-        catch (ClassNotFoundException ex) {System.out.println("Dados não importados! Classe não encontrada.");}
+        model = BetESSPersistency.carregaEstado("dados.obj");
         
-        if (carregado == 0){
+        if (model == null){
+            model = new BetESSModel();
             System.out.println("A criar dados...");
             
             model.addEvento("CD Leganés", "Atlético Madrid", 5.25, 2.85, 1.57, true);
@@ -63,12 +53,7 @@ public class Main {
 
         control.startFlow();
         
-        try{
-            model.guardaEstado("dados.obj");
-            System.out.println("Dados guardados com sucesso");
-        }
-        catch (FileNotFoundException ex) {System.out.println("Dados da sessão não guardados! Ficheiro não encontrado.");}
-        catch (IOException ex) {System.out.println("Dados da sessão não guardados! Erro a aceder a ficheiro!");}
+        BetESSPersistency.guardaEstado(model, "dados.obj");
     }
     
 }
