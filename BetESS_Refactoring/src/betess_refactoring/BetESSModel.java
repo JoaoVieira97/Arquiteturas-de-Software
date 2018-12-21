@@ -52,38 +52,12 @@ public class BetESSModel implements Serializable{
         this.eventos.put(this.id_proximoEvento, novoEvento);
         this.id_proximoEvento++;
     }
-        
-    public void addEvento(Evento evento){
-        evento.setId(id_proximoEvento);
-        this.eventos.put(this.id_proximoEvento, evento);
-        this.id_proximoEvento++;
-    }
     
     // 1 - modificado com sucesso, 0 - evento não existe
     public int mudarDisponibilidadeEvento(int idEvento, boolean disponibilidade){
         if (!this.eventos.containsKey(idEvento)) return 0;
         else{
             this.eventos.get(idEvento).setDisponibilidade(disponibilidade);
-            return 1;
-        }
-    }
-    
-    // 1 - modificado com sucesso, 0 - evento não existe
-    public int mudarOddsEvento(int idEvento, double odd_1, double odd_x, double odd_2){
-        if (!this.eventos.containsKey(idEvento)) return 0;
-        else{
-            this.eventos.get(idEvento).setOdds(odd_1, odd_x, odd_2);
-            return 1;
-        }
-    }
-    
-    // 1 - modificado com sucesso, 0 - evento não existe
-    public int mudarEquipasEvento(int idEvento, String equipa_1, String equipa_2){
-        if (!this.eventos.containsKey(idEvento)) return 0;
-        else{
-            Evento e = this.eventos.get(idEvento);
-            e.setEquipa_1(equipa_1);
-            e.setEquipa_2(equipa_2);
             return 1;
         }
     }

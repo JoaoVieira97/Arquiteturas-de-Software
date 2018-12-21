@@ -67,21 +67,38 @@ public class Apostador extends Utilizador implements Serializable{
         for (Aposta aposta : this.apostas){
             if (aposta.getIdEvento() == idEvento){
                 aposta.setResultado_evento(resultado);
-                if (aposta.getResultado_evento() == aposta.getResultado_aposta()){ //ganhou aposta
-                    this.saldo += aposta.getQuantia() * aposta.getOdd();
-                    this.notificacoes.add("Ganhou a aposta com o id " + aposta.getId()
-                                         + ", respetiva ao evento " + aposta.getEvento().getEquipa_1()
-                                         + " X " + aposta.getEvento().getEquipa_2()
-                                         + ", o seu saldo foi incrementado em " + aposta.getQuantia() * aposta.getOdd() + " ESScoins");
+                if (ganhouAposta(aposta)){
+                    this.saldo += ganhosAposta(aposta);
+                    adicionaNotificacaoVitoria(aposta);
                 }
-                else{ //perdeu aposta
-                    this.notificacoes.add("Perdeu a aposta com o id " + aposta.getId()
-                                     + ", respetiva ao evento " + aposta.getEvento().getEquipa_1()
-                                     + " X " + aposta.getEvento().getEquipa_2()
-                                     + ", na qual apostou " + aposta.getQuantia() + " ESScoins");
+                else{
+                    adicionaNotificacaoDerrota(aposta);
                 }
             }
         }
     }
+    
+    public boolean ganhouAposta(Aposta aposta){
+        return aposta.getResultado_evento() == aposta.getResultado_aposta();
+    }
+    
+    public double ganhosAposta(Aposta aposta){
+        return aposta.getQuantia() * aposta.getOdd();
+    }
+    
+    public void adicionaNotificacaoVitoria(Aposta aposta){
+        this.notificacoes.add("Ganhou a aposta com o id " + aposta.getId()
+                              + ", respetiva ao evento " + aposta.getEquipa_1Evento()
+                              + " X " + aposta.getEquipa_2Evento()
+                              + ", o seu saldo foi incrementado em " + aposta.getQuantia() * aposta.getOdd() + " ESScoins");
+    }
+    
+    public void adicionaNotificacaoDerrota(Aposta aposta){
+        this.notificacoes.add("Perdeu a aposta com o id " + aposta.getId()
+                              + ", respetiva ao evento " + aposta.getEquipa_1Evento()
+                              + " X " + aposta.getEquipa_2Evento()
+                              + ", na qual apostou " + aposta.getQuantia() + " ESScoins");
+    }
+    
 }
 

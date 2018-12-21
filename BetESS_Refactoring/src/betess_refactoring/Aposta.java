@@ -25,16 +25,23 @@ public class Aposta implements Serializable{
 
     @Override
     public String toString() {
-        String ra;
+        return "id = " + this.id + ", jogo: " + this.evento.getEquipa_1() + " X " + this.evento.getEquipa_2()
+                + ", aposta realizada = " + resultadoAposta() + ", odd = " + this.odd
+                + ", quantia = " + this.quantia + " ESScoins"
+                + ", possíveis ganhos = " + possiveisGanhos() + " ESScoins, estado = " + estado();
+    }
+    
+    private String resultadoAposta(){
         switch (this.resultado_aposta){
-            case 0: ra = "1"; break;
-            case 1: ra = "X"; break;
-            case 2: ra = "2"; break;
-            default: ra = ""; break;
+            case 0: return "1";
+            case 1: return "X";
+            case 2: return "2";
+            default: return "";
         }
-        double ganhos;
-        ganhos = this.odd * this.quantia;
-        return "id = " + this.id + ", jogo: " + this.evento.getEquipa_1() + " X " + this.evento.getEquipa_2() + ", aposta realizada = " + ra + ", odd = " + this.odd + ", quantia = " + this.quantia + " ESScoins" + ", possíveis ganhos = " + ganhos + " ESScoins, estado = " + estado();
+    }
+    
+    private double possiveisGanhos(){
+        return this.odd * this.quantia;
     }
     
     private String estado(){
@@ -98,5 +105,13 @@ public class Aposta implements Serializable{
     
     public int getIdEvento(){
         return this.evento.getId();
+    }
+    
+    public String getEquipa_1Evento(){
+        return this.evento.getEquipa_1();
+    }
+    
+    public String getEquipa_2Evento(){
+        return this.evento.getEquipa_2();
     }
 }
