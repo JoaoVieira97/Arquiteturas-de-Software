@@ -38,15 +38,12 @@ public class BetESSController{
         do {
             menu.show();
             Scanner scan = new Scanner(System.in);
-            opcao = scan.next();
-            opcao = opcao.toUpperCase();
+            opcao = scan.next().toUpperCase();
             switch(opcao) {
                 case "L" :
-                    login();
-                    break;
+                    login(); break;
                 case "R" :
-                    registar();
-                    break;
+                    registar(); break;
                 case "S":
                     break;
                 default:
@@ -63,49 +60,42 @@ public class BetESSController{
         view.print("Password: ");
         String password = scan.nextLine();
         int login = this.model.login(email, password);
-        String nome;
         switch (login) {
             case 1:
-                nome = model.getUtilizador(email).getNome();
-                view.println("Login como apostador efetuado com sucesso. Bem-vindo " + nome + "!");
-                this.apostadorController.startFlow(email);
-                break;
+                loginUtilizador(1,email); break;
             case 2:
-                nome = model.getUtilizador(email).getNome();
-                view.println("Login como funcionário efetuado com sucesso. Bem-vindo " + nome + "!");
-                this.funcionarioController.startFlow(email);
-                break;
+                loginUtilizador(2,email); break;
             case 0:
-                view.println("Password inserida está incorreta");
-                break;
+                view.println("Password inserida está incorreta"); break;
             case -1:
-                view.println("Não existe o utlizador com o email inserido");
-                break;
-            default:
-                break;
+                view.println("Não existe o utlizador com o email inserido"); break;
+            default: break;
         }
     }
-
+    
+    // mode = 1 -> apostador, mode = 2 -> funcionário
+    private void loginUtilizador(int mode, String email){
+        String nome = model.getUtilizador(email).getNome();
+        String user = (mode == 1) ? "apostador" : "funcionário";
+        view.println("Login como " + user + " efetuado com sucesso. Bem-vindo " + nome + "!");
+        if (mode == 1) this.apostadorController.startFlow(email);
+        else this.funcionarioController.startFlow(email);
+    }
+    
     private void registar() {
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in); Scanner scanD = new Scanner(System.in);
         view.println("Insira o seu email:");
         String email = scan.nextLine();
         if (this.model.existeUtilizador(email)){
-            view.println("Já existe um utilizador com o email inserido");
-            return;
+            view.println("Já existe um utilizador com o email inserido"); return;
         }
         view.println("Insira o seu nome:");
         String nome = scan.nextLine();
         view.println("Insira a sua password:");
         String password = scan.nextLine();
         view.println("Qual o valor que pretende carregar na sua conta?");
-        Scanner scanD = new Scanner(System.in);
         double saldo = scanD.nextDouble();
-        String[] dados = new String[3];
-        dados[0] = email;
-        dados[1] = password;
-        dados[2] = nome;
-        model.addApostador(dados, saldo);
+        model.addApostador(new String[] {email, password, nome}, saldo);
         view.println("Registo efetuado com sucesso");
     }
 
