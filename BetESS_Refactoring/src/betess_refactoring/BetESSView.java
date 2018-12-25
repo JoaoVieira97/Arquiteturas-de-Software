@@ -101,6 +101,14 @@ public class BetESSView {
         System.out.println("S >>> Cancelar aposta");
     }
     
+    public void opcoesTerminarEvento(Evento evento){
+        System.out.println("Qual o resultado com que o evento terminou?");
+        System.out.println("1 - Vitória do/da " + evento.getEquipa_1());
+        System.out.println("X - Empate");
+        System.out.println("2 - Vitória do/da " + evento.getEquipa_2());
+        System.out.print("Opção : ");
+    }
+    
     public Menu getMenu(int indice){
         return this.menus.get(indice);
     }

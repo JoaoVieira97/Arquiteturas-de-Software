@@ -95,36 +95,37 @@ public class Controller_Funcionario implements UserControllerInterface{
     }
     
     private void flowModificar(){
-        Scanner scanI = new Scanner(System.in);
-        view.print("Insira o id do evento que pretende modificar: ");
-        int id = scanI.nextInt();
-        if (!this.model.existeEvento(id)){
-            view.println("Não exister o evento com o id inserido");
-            return;
-        }
+        int id = lerEvento();
+        if (id == -1) return;
         Evento evento = this.model.getEvento(id);
         Menu menu = view.getMenu(4);
         String opcao;
         do {
             menu.show();
             Scanner scan = new Scanner(System.in);
-            opcao = scan.next();
-            opcao = opcao.toUpperCase();
+            opcao = scan.next().toUpperCase();
             switch(opcao) {
                 case "D" :
-                    modificarDisponibilidadeEvento(evento);
-                    break;
+                    modificarDisponibilidadeEvento(evento); break;
                 case "O" :
-                    modificarOddsEvento(evento);
-                    break;
+                    modificarOddsEvento(evento); break;
                 case "E" :
-                    modificarEquipasEvento(evento);
-                    break;
-                case "S": 
-                    break;
+                    modificarEquipasEvento(evento); break;
+                case "S": break;
                 default: view.println("Opcão Inválida !"); break;
             }
         } while(!opcao.equals("S"));    
+    }
+    
+    private int lerEvento(){
+        Scanner scanI = new Scanner(System.in);
+        view.print("Insira o id do evento que pretende modificar: ");
+        int id = scanI.nextInt();
+        if (!this.model.existeEvento(id)){
+            view.println("Não exister o evento com o id inserido");
+            return -1;
+        }
+        return id;
     }
     
     private void modificarDisponibilidadeEvento(Evento evento){
@@ -135,15 +136,12 @@ public class Controller_Funcionario implements UserControllerInterface{
         switch (opcao){
             case "D":
                 evento.setDisponibilidade(true);
-                view.println("Evento colocado como disponível");
-                break;
+                view.println("Evento colocado como disponível"); break;
             case "I":
                 evento.setDisponibilidade(false);
-                view.println("Evento colocado como indisponível");
-                break;
+                view.println("Evento colocado como indisponível"); break;
             default:
-                view.println("Opção inválida");
-                break;
+                view.println("Opção inválida"); break;
         }
     }
     
@@ -178,32 +176,34 @@ public class Controller_Funcionario implements UserControllerInterface{
         Scanner scanI = new Scanner(System.in);
         int id = scanI.nextInt();
         int m = this.model.mudarDisponibilidadeEvento(id, false);
-        if (m == 0){
-            view.println("Não existe o evento com o id inserido");
-            return;
-        }
+        if (m == 0) {view.println("Não existe o evento com o id inserido"); return;}
         else if (m == 1){
             Evento evento = this.model.getEvento(id);
-            view.println("Qual o resultado com que o evento terminou?");
-            view.println("1 - Vitória do/da " + evento.getEquipa_1());
-            view.println("X - Empate");
-            view.println("2 - Vitória do/da " + evento.getEquipa_2());
-            view.print("Opção : ");
-            Scanner scan = new Scanner(System.in);
-            String opcao = scan.nextLine().toUpperCase();
-            int resultado = -1;
-            switch (opcao){
-                case "1": resultado = 0; break;
-                case "X": resultado = 1; break;
-                case "2": resultado = 2; break;
-                default: System.out.println("Resultado inválido!"); return;
-            }
-            Apostador apostador;
-            for (String a : evento.getApostadores()){
-                apostador = (Apostador) this.model.getUtilizador(a);
-                apostador.eventoTerminado(evento.getId(),resultado);
-            }
+            this.view.opcoesTerminarEvento(evento);
+            int resultado = lerResultado();
+            notificarApostadores(evento, resultado);
             view.println("Evento encerrado com sucesso");
+        }
+    }
+    
+    private int lerResultado(){
+        Scanner scan = new Scanner(System.in);
+        String opcao = scan.nextLine().toUpperCase();
+        int resultado = -1;
+        switch (opcao){
+            case "1": resultado = 0; break;
+            case "X": resultado = 1; break;
+            case "2": resultado = 2; break;
+            default: view.println("Resultado inválido!"); break;
+        }
+        return resultado;
+    }
+    
+    private void notificarApostadores(Evento evento, int resultado){
+        Apostador apostador;
+        for (String a : evento.getApostadores()){
+            apostador = (Apostador) this.model.getUtilizador(a);
+            apostador.eventoTerminado(evento.getId(),resultado);
         }
     }
     
