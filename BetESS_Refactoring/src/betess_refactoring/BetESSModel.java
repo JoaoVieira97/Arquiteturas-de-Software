@@ -111,4 +111,16 @@ public class BetESSModel implements Serializable{
         this.id_proximoEvento = id_proximoEvento;
     }
     
+    public String getNomeUtilizador(String email){
+        return this.utilizadores.get(email).getNome();
+    }
+    
+    public double getSaldoApostador(String email){
+        return ((Apostador) this.utilizadores.get(email)).getSaldo();
+    }
+    
+    public void setSaldoApostador(String email, double saldo){
+        ((Apostador) this.utilizadores.get(email)).setSaldo(saldo);
+    }
+    
 }

@@ -45,7 +45,7 @@ public class Controller_Funcionario implements UserControllerInterface{
                 default: view.println("Opcão Inválida !"); break;
             }
         } while(!opcao.equals("S"));
-        view.println("Até à próxima visita " + model.getUtilizador(email).getNome() + "!");
+        view.println("Até à próxima visita " + model.getNomeUtilizador(email) + "!");
     }
     
     private void mostrarEventos() {

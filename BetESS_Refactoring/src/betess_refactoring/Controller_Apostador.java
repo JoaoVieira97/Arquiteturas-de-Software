@@ -20,44 +20,48 @@ public class Controller_Apostador implements UserControllerInterface{
         this.model = m;
     }
     
-    public void startFlow(String email) {
+    public void startFlow(String email){
         Menu menu = view.getMenu(2);
         Apostador a = (Apostador) this.model.getUtilizador(email);
         String opcao;
         do {
             List<String> noti = a.getNotificacoes();
-            if (noti.isEmpty()) menu.show();
-            else this.view.menuApostadorNotificacoes(noti.size()).show();
-            Scanner scan = new Scanner(System.in);
-            opcao = scan.next();
-            opcao = opcao.toUpperCase();
+            opcao = lerOpcao(menu, noti);
             switch(opcao) {
                 case "N" :
-                    if (noti.isEmpty()){ System.out.println("Opcão Inválida!"); break;}
-                    this.view.printNotificacoes(noti);
-                    a.cleanNotificacoes();
-                    break;
+                    verNotificacoes(noti, a); break;
                 case "E" :
-                    mostrarEventos();
-                    break;
+                    mostrarEventos(); break;
                 case "V" :
-                    verApostasRealizadas(email);
-                    break;
+                    verApostasRealizadas(email); break;
                 case "A" :
-                    novaAposta(email);
-                    break;
+                    novaAposta(email); break;
                 case "C" :
-                    imprimeSaldo(email);
-                    break;
+                    imprimeSaldo(email); break;
                 case "I" :
-                    carregarConta(email);
-                    break;
-                case "S": 
-                    break;
+                    carregarConta(email); break;
+                case "S": break;
                 default: view.println("Opcão Inválida !"); break;
             }
         } while(!opcao.equals("S"));
-        view.println("Até à próxima visita " + model.getUtilizador(email).getNome() + "!");
+        view.println("Até à próxima visita " + model.getNomeUtilizador(email) + "!");
+    }
+    
+    private String lerOpcao(Menu menu, List<String> noti){
+        if (noti.isEmpty()) menu.show();
+        else this.view.menuApostadorNotificacoes(noti.size()).show();
+        Scanner scan = new Scanner(System.in);
+        String opcao = scan.next().toUpperCase();
+        return opcao;
+    }
+    
+    private void verNotificacoes(List<String> noti, Apostador a){
+        if (noti.isEmpty()){
+            System.out.println("Opcão Inválida!");
+            return;
+        }
+        this.view.printNotificacoes(noti);
+        a.cleanNotificacoes();
     }
     
     private void mostrarEventos() {
@@ -68,7 +72,7 @@ public class Controller_Apostador implements UserControllerInterface{
         view.printApostas(this.model.getApostas(email));
     }
 
-    private void novaAposta(String email) {
+    private void novaAposta(String email){
         String opcao;
         view.println("Insira o id do evento em que pretende apostar:");
         Scanner scanI = new Scanner(System.in);
@@ -131,7 +135,7 @@ public class Controller_Apostador implements UserControllerInterface{
     }
 
     private void imprimeSaldo(String email){
-        view.println("O saldo atual da conta é de " + ((Apostador) this.model.getUtilizador(email)).getSaldo() + " ESScoins");
+        view.println("O saldo atual da conta é de " + this.model.getSaldoApostador(email) + " ESScoins");
     }
     
     private void carregarConta(String email){
@@ -139,8 +143,8 @@ public class Controller_Apostador implements UserControllerInterface{
         view.println("Insira a quantidade monetária que pretende carregar na sua conta");
         view.print("Quantia : ");
         double q = scan.nextDouble();
-        double novo_saldo = ((Apostador) this.model.getUtilizador(email)).getSaldo() + q;
-        ((Apostador) this.model.getUtilizador(email)).setSaldo(novo_saldo);
+        double novo_saldo = this.model.getSaldoApostador(email) + q;
+        this.model.setSaldoApostador(email, novo_saldo);
         view.println("Carregamento efetuado com sucesso! O seu saldo é de agora " + novo_saldo + " ESScoins");
     }
     

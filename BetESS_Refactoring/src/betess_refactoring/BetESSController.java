@@ -75,7 +75,7 @@ public class BetESSController{
     
     // mode = 1 -> apostador, mode = 2 -> funcionário
     private void loginUtilizador(int mode, String email){
-        String nome = model.getUtilizador(email).getNome();
+        String nome = model.getNomeUtilizador(email);
         String user = (mode == 1) ? "apostador" : "funcionário";
         view.println("Login como " + user + " efetuado com sucesso. Bem-vindo " + nome + "!");
         if (mode == 1) this.apostadorController.startFlow(email);
