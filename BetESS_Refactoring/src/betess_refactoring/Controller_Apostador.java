@@ -73,65 +73,72 @@ public class Controller_Apostador implements UserControllerInterface{
     }
 
     private void novaAposta(String email){
-        String opcao;
         view.println("Insira o id do evento em que pretende apostar:");
+        int id = lerIdEvento();
+        if (id == -1) return;
+        Apostador apostador = (Apostador) this.model.getUtilizador(email);
+        view.println("Indique a quantia que pretende a apostar: (Pode apostar até " + apostador.getSaldo() + " ESScoins)");
+        double quantia = lerQuantia(apostador);
+        if (quantia == -1) return;
+        Evento evento = this.model.getEvento(id);                      
+        lerAposta(apostador, evento, quantia); 
+    }
+    
+    private int lerIdEvento(){
         Scanner scanI = new Scanner(System.in);
         int id = scanI.nextInt();
         if (!this.model.existeEvento(id)){
             view.println("O evento com o id inserido não existe");
-            return;
+            return -1;
         }
         else if (!this.model.getEvento(id).getDisponibilidade()){
             view.println("O evento escolhido não está disponível para apostas de momento!");
-            return;
+            return -1;
         }
-        Apostador apostador = (Apostador) this.model.getUtilizador(email);
-        view.println("Indique a quantia que pretende a apostar: (Pode apostar até " + apostador.getSaldo() + " ESScoins)");
+        return id;
+    }
+    
+    private double lerQuantia(Apostador a){
         Scanner scanD = new Scanner(System.in);
         double quantia = scanD.nextDouble();
-        if (!apostador.saldoSufiente(quantia)){
+        if (!a.saldoSufiente(quantia)){
             view.println("O seu saldo é insuficiente para realizar a aposta desejada");
-            return;
+            return -1;
         }
-        Evento evento = this.model.getEvento(id);                      
+        return quantia;
+    }
+    
+    private void lerAposta(Apostador apostador, Evento evento, double quantia){
+        String opcao;
         do{
             this.view.menuEquipas(evento, quantia);
             view.println("Insira a sua escolha:");
             Scanner scan = new Scanner(System.in);
-            opcao = scan.next();
-            opcao = opcao.toUpperCase();
-            Integer[] resultados= new Integer[2];
-            resultados[0]= -1;
-            double[] quantiaOdd = new double[2];
+            opcao = scan.next().toUpperCase();
             switch(opcao) {
                 case "1" :
-                    resultados[1] = 0;
-                    quantiaOdd[0] = quantia;
-                    quantiaOdd[1]= evento.getOdds()[0];
-                    apostador.newAposta(resultados,quantiaOdd, evento); view.println("Aposta realizada na equipa " + evento.getEquipa_1() + "!");
-                    evento.addApostador(email);
-                    return;
+                    apostaRealizada(apostador, evento, quantia, 0); return;
                 case "X" :
-                    resultados[1] = 1;
-                    quantiaOdd[0] = quantia;
-                    quantiaOdd[1]= evento.getOdds()[1];
-                    apostador.newAposta(resultados,quantiaOdd, evento); view.println("Aposta realizada no empate!");
-                    evento.addApostador(email);
-                    return;
+                    apostaRealizada(apostador, evento, quantia, 1); return;
                 case "2" :
-                    resultados[1] = 2;
-                    quantiaOdd[0] = quantia;
-                    quantiaOdd[1]= evento.getOdds()[2];
-                    apostador.newAposta(resultados,quantiaOdd, evento); view.println("Aposta realizada na equipa " + evento.getEquipa_2() + "!");
-                    evento.addApostador(email);
-                    return;
-                case "S":
-                    break;
-                default:
-                    view.println("Opcão Inválida! Tente de novo.");
-                    break;
+                    apostaRealizada(apostador, evento, quantia, 2); return;
+                case "S": break;
+                default: view.println("Opcão Inválida! Tente de novo."); break;
             }
-        } while(!opcao.equals("S"));  
+        } while(!opcao.equals("S")); 
+    }
+    
+    private void apostaRealizada(Apostador a, Evento e, double quantia, int i){
+        a.newAposta(new Integer[]{-1,i}, new double[]{quantia, e.getOdds()[i]}, e);
+        switch (i){
+            case 0:
+                view.println("Aposta realizada na equipa " + e.getEquipa_1() + "!"); break;
+            case 1:
+                view.println("Aposta realizada no empate!"); break;
+            default:
+                view.println("Aposta realizada na equipa " + e.getEquipa_2() + "!"); break;
+        }
+        e.addApostador(a.getEmail());
     }
 
     private void imprimeSaldo(String email){
