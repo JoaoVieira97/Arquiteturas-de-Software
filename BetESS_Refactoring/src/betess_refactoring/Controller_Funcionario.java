@@ -29,19 +29,14 @@ public class Controller_Funcionario implements UserControllerInterface{
             opcao = opcao.toUpperCase();
             switch(opcao) {
                 case "E" :
-                    mostrarEventos();
-                    break;
+                    mostrarEventos(); break;
                 case "A" :
-                    adicionarEvento();
-                    break;
+                    adicionarEvento(); break;
                 case "M" :
-                    flowModificar();
-                    break;
+                    flowModificar(); break;
                 case "T" :
-                    terminarEvento();
-                    break;
-                case "S": 
-                    break;
+                    terminarEvento(); break;
+                case "S": break;
                 default: view.println("Opcão Inválida !"); break;
             }
         } while(!opcao.equals("S"));
@@ -53,12 +48,27 @@ public class Controller_Funcionario implements UserControllerInterface{
     }
     
     private void adicionarEvento(){
+        String[] equipas = lerEquipas();
+        double[] odds = lerOdds(equipas[0], equipas[1]);
+        view.print("O evento pode estar disponível de momento (S/N): ");
+        int d = lerDisponibilidade();
+        if (d == -1) return;
+        boolean disponibilidade = (d == 1) ? true : false;
+        this.model.addEvento(equipas, odds, disponibilidade);
+        view.println("Evento adicionado com sucesso");
+    }
+    
+    private String[] lerEquipas(){
         Scanner scan = new Scanner(System.in);
         view.println("Insira o nome das 2 equipas envolvidas no jogo:");
         view.print("Equipa nº1 : ");
         String equipa_1 = scan.nextLine();
         view.print("Equipa nº2 : ");
         String equipa_2 = scan.nextLine();
+        return new String[]{equipa_1, equipa_2};
+    }
+    
+    private double[] lerOdds(String equipa_1, String equipa_2){
         Scanner scanD = new Scanner(System.in);
         view.println("Insira as odd's para os 3 possíveis resultados:");
         view.print("Vitória do/da " + equipa_1 + ": ");
@@ -67,23 +77,21 @@ public class Controller_Funcionario implements UserControllerInterface{
         double odd_x = scanD.nextDouble();
         view.print("Vitória do/da " + equipa_2 + ": ");
         double odd_2 = scanD.nextDouble();
+        return new double[]{odd_1, odd_x, odd_2};
+    }
+    
+    private int lerDisponibilidade(){
+        Scanner scan = new Scanner(System.in);
         view.print("O evento pode estar disponível de momento (S/N): ");
         String d = scan.nextLine().toUpperCase();
-        boolean disponibilidade;
+        int disp;
         switch(d){
-            case "S": disponibilidade = true; break;
-            case "N": disponibilidade = false; break;
-            default: view.println("Opção inválida"); return;
+            case "S": disp = 1; break;
+            case "N": disp = 2; break;
+            default: view.println("Opção inválida");
+                     disp = -1;
         }
-        String[] equipas = new String[2];
-        equipas[0] =  equipa_1;
-        equipas[1] =  equipa_2;
-        double[] odds = new double[3];
-        odds[0] =  odd_1;
-        odds[1] =  odd_x;
-        odds[2] = odd_2;
-        this.model.addEvento(equipas,odds, disponibilidade);
-        view.println("Evento adicionado com sucesso");
+        return disp;
     }
     
     private void flowModificar(){
