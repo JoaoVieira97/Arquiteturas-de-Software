@@ -1,9 +1,9 @@
-package betess;
-
 /**
  *
  * @author João Vieira & Simão Barbosa
  */
+package betess;
+
 import java.util.List;
 
 public class Menu {

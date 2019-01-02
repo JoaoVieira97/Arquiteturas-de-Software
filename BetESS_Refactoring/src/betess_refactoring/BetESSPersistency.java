@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author João Vieira & Simão Barbosa
  */
 package betess_refactoring;
 
@@ -12,10 +11,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public class BetESSPersistency {
     
     public static void guardaEstado(BetESSModel model, String nomeFicheiro){

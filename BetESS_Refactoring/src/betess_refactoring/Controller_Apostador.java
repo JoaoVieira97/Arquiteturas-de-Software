@@ -1,12 +1,12 @@
+/**
+ *
+ * @author João Vieira & Simão Barbosa
+ */
 package betess_refactoring;
 
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public class Controller_Apostador implements UserControllerInterface{
     
     private BetESSModel model;

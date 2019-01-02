@@ -1,12 +1,12 @@
+/**
+ *
+ * @author João Vieira & Simão Barbosa
+ */
 package betess;
 
 import java.util.Arrays;
 import java.util.List;
 
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public class BetESSView {
     
     private Menus menus;

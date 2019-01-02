@@ -1,3 +1,7 @@
+/**
+ *
+ * @author João Vieira & Simão Barbosa
+ */
 package betess_refactoring;
 
 import java.util.ArrayList;
@@ -6,10 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.io.Serializable;
 
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public class BetESSModel implements Serializable{
     
     private Map<String,Utilizador> utilizadores;

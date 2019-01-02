@@ -1,9 +1,9 @@
-package betess_refactoring;
-
 /**
  *
  * @author João Vieira & Simão Barbosa
  */
+package betess_refactoring;
+
 public class Main {
     
     public static void main(String[] args){

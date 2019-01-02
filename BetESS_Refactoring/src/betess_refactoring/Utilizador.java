@@ -1,13 +1,13 @@
+/**
+ *
+ * @author João Vieira & Simão Barbosa
+ */
 package betess_refactoring;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public abstract class Utilizador implements Serializable{
     
     private String email;

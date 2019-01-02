@@ -1,12 +1,12 @@
+/**
+ *
+ * @author João Vieira & Simão Barbosa
+ */
 package betess;
 
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public class BetESSController {
    
     private BetESSModel model;

@@ -1,11 +1,11 @@
-package betess_refactoring;
-
-import java.util.Scanner;
-
 /**
  *
  * @author João Vieira & Simão Barbosa
  */
+package betess_refactoring;
+
+import java.util.Scanner;
+
 public class Controller_Funcionario implements UserControllerInterface{
     
     private BetESSModel model;
