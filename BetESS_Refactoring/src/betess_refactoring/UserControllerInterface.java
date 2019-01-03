@@ -1,9 +1,8 @@
-package betess_refactoring;
-
 /**
  *
  * @author João Vieira & Simão Barbosa
  */
+package betess_refactoring;
 public interface UserControllerInterface {
     
     public void setView(BetESSView v);

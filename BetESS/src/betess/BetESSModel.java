@@ -1,3 +1,7 @@
+/**
+ *
+ * @author João Vieira & Simão Barbosa
+ */
 package betess;
 
 import java.util.ArrayList;
@@ -11,11 +15,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public class BetESSModel implements Serializable{
     
     private Map<String,Utilizador> utilizadores;

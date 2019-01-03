@@ -1,11 +1,11 @@
-package betess;
-
-import java.io.Serializable;
-
 /**
  *
  * @author João Vieira & Simão Barbosa
  */
+package betess;
+
+import java.io.Serializable;
+
 public class Aposta implements Serializable{
     private int id;
     private int resultado_evento;// -1 - aberto, 0 - vitória equipa_1, 1 - empate, 2 - vitória equipa_2 

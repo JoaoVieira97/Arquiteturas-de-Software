@@ -1,12 +1,12 @@
+/**
+ *
+ * @author João Vieira & Simão Barbosa
+ */
 package betess;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/**
- *
- * @author João Vieira & Simão Barbosa
- */
 public class Main {
     
     public static void main(String[] args){

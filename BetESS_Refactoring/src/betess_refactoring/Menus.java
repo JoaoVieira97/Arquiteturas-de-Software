@@ -1,9 +1,9 @@
-package betess_refactoring;
-
 /**
  *
  * @author João Vieira & Simão Barbosa
  */
+package betess_refactoring;
+
 import java.util.Map;
 import java.util.HashMap;
 
