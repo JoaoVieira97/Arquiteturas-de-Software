@@ -12,7 +12,6 @@ public class Menu {
 	private String titulo;
 	
 	public Menu(List<Opcao> linhas, String titulo) {
-            //super();
             this.linhas = linhas;
             this.titulo = titulo;
 	}
