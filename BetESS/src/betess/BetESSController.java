@@ -79,15 +79,15 @@ public class BetESSController {
     private void registar() {
         Scanner scan = new Scanner(System.in);
         view.println("Insira o seu email:");
-        String email = scan.next();
+        String email = scan.nextLine();
         if (this.model.existeUtilizador(email)){
             view.println("Já existe um utilizador com o email inserido");
             return;
         }
         view.println("Insira o seu nome:");
-        String nome = scan.next();
+        String nome = scan.nextLine();
         view.println("Insira a sua password:");
-        String password = scan.next();
+        String password = scan.nextLine();
         view.println("Qual o valor que pretende carregar na sua conta?");
         Scanner scanD = new Scanner(System.in);
         double saldo = scanD.nextDouble();
